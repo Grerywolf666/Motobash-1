@@ -1,29 +1,4 @@
-@import "http://webfonts.ru/import/osans.css";
-//Open Sans, 300, 300 italic, 400, 400 italic, 600, 600 italic, 700, 700 italic, 800, 800 italic
-
-//Variables
-@wrapper-width:960px;
-@headline-color: #333;
-@headline-fontsize: 34px;
-//Mixins
-
-//General
-body{
-    background:url("images/site-bg.png") repeat;
-    font-family:"Open Sans", sans-serif;
-    margin:0;
-    padding:0;
-}
-#wrapper{
-    width:@wrapper-width;
-    margin:0 auto;
-    padding:0;
-}
-[data-href]{
-    cursor:pointer;
-}
-//Styles
-#wrapper>header{
+.header{
     margin-top:10px;
     position:relative;
     h1{
@@ -34,7 +9,7 @@ body{
         line-height:@headline-fontsize*1.5;
         color:@headline-color;
         &:before{
-            content:url("images/mv-logo.png");
+            content:url("../images/mv-logo.png");
             margin-right:10px;
             display:inline-block;
         }
@@ -68,7 +43,4 @@ body{
             }
         }
     }
-}
-main{}
-#wrapper>footer{
 }
