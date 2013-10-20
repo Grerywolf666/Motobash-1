@@ -16,17 +16,17 @@
 
             a{
                 display:block;
-                color:#fff;
+                color:@menu-text-color;
                 text-decoration:none;
                 overflow:hidden;
                 border-bottom:1px solid transparent;
                 .one-line-middle(@menu-item-height, 16px);
                 width:@menu-item-width;
-                .transition(@delay: 0.1s);
+                .transition();
 
                 &:hover {
-                    color:#333;
-                    border-bottom-color:#333;
+                    color:@menu-hover-text-color;
+                    border-bottom-color:@menu-hover-text-color;
                 }
 
             }
