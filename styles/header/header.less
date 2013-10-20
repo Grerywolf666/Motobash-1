@@ -4,9 +4,7 @@
     h1{
         font-weight:600;
         margin:0;
-        font-size:@headline-fontsize;
-        height:@headline-fontsize*1.5;
-        line-height:@headline-fontsize*1.5;
+        .one-line-middle(@headline-fontsize*1.5, @headline-fontsize);
         color:@headline-color;
         &:before{
             content:url("../images/mv-logo.png");
