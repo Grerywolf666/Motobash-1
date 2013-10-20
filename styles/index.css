@@ -1,0 +1,263 @@
+@import "http://webfonts.ru/import/osans.css";
+/* 
+   http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+code,
+del,
+dfn,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+body {
+  background: url("../images/site-bg.png") repeat;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+.wrapper {
+  width: 960px;
+  margin: 0 auto;
+  padding: 0;
+}
+[data-href] {
+  cursor: pointer;
+}
+main {
+  display: block;
+}
+.header {
+  margin-top: 10px;
+  position: relative;
+}
+.header h1 {
+  font-weight: 600;
+  margin: 0;
+  height: 51px;
+  line-height: 51px;
+  font-size: 34px;
+  white-space: nowrap;
+  color: #3c3c3c;
+}
+.header h1:before {
+  content: url("../images/mv-logo.png");
+  margin-right: 10px;
+  display: inline-block;
+}
+.header .our-feed {
+  width: 165px;
+  height: 50px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.header .our-feed a {
+  display: block;
+  width: 50px;
+  height: 50px;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: #fff;
+  float: right;
+  margin-left: 5px;
+}
+.main-menu ul {
+  list-style: none;
+  display: block;
+  text-align: center;
+}
+.main-menu ul li {
+  display: inline-block;
+  background-image: url('../images/menu-bg.png');
+  margin-left: 20px;
+}
+.main-menu ul li:first-child {
+  margin-left: 0;
+}
+.main-menu ul li a {
+  display: block;
+  color: #ffffff;
+  text-decoration: none;
+  overflow: hidden;
+  border-bottom: 1px solid transparent;
+  height: 25px;
+  line-height: 25px;
+  font-size: 16px;
+  white-space: nowrap;
+  width: 110px;
+  -webkit-transition: all 0.25s ease 0.1s;
+  -moz-transition: all 0.25s ease 0.1s;
+  -ms-transition: all 0.25s ease 0.1s;
+  -o-transition: all 0.25s ease 0.1s;
+  transition: all 0.25s ease 0.1s;
+}
+.main-menu ul li a:hover {
+  border-bottom-color: #3c3c3c;
+  -moz-transform: scale(1.1, 1.2);
+  -ms-transform: scale(1.1, 1.2);
+  -o-transform: scale(1.1, 1.2);
+  -webkit-transform: scale(1.1, 1.2);
+  transform: scale(1.1, 1.2);
+}
+.pagination {
+  margin: 10px 0;
+}
+.pagination ul {
+  display: block;
+  list-style: none;
+  text-align: center;
+  height: 25px;
+  line-height: 25px;
+  font-size: 18.75px;
+  white-space: nowrap;
+}
+.pagination ul li {
+  display: inline-block;
+  padding: 0 5px;
+}
+.pagination ul a,
+.pagination ul span {
+  color: #222222;
+  text-decoration: none;
+  font-size: 18px;
+  display: inline-block;
+  padding: 2px 3px;
+  border-bottom: 1px solid transparent;
+  -webkit-transition: all 0.25s ease 0.1s;
+  -moz-transition: all 0.25s ease 0.1s;
+  -ms-transition: all 0.25s ease 0.1s;
+  -o-transition: all 0.25s ease 0.1s;
+  transition: all 0.25s ease 0.1s;
+}
+.pagination ul a.this-page,
+.pagination ul span.this-page {
+  font-size: 20px;
+  font-weight: 600;
+}
+.pagination ul a:hover {
+  border-bottom-color: #222222;
+  -moz-transform: scale(1.1, 1.1);
+  -ms-transform: scale(1.1, 1.1);
+  -o-transform: scale(1.1, 1.1);
+  -webkit-transform: scale(1.1, 1.1);
+  transform: scale(1.1, 1.1);
+}
