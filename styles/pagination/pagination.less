@@ -10,28 +10,28 @@
         li {
             display:inline-block;
             padding:0 5px;
+        }
 
-            a,
-            span {
-                color:@text-color;
-                text-decoration:none;
-                font-size:18px;
-                display:inline-block;
-                padding:2px 3px;
-                border-bottom:1px solid transparent;
-                .transition();
+        a,
+        span {
+            color:@text-color;
+            text-decoration:none;
+            font-size:18px;
+            display:inline-block;
+            padding:2px 3px;
+            border-bottom:1px solid transparent;
+            .transition();
 
-                &.this-page {
-                    font-size:20px;
-                    font-weight:600;
-                }
-
+            &.this-page {
+                font-size:20px;
+                font-weight:600;
             }
 
-            a:hover {
-                border-bottom-color: @text-color;
-            }
+        }
 
+        a:hover {
+            border-bottom-color: @text-color;
+            .transform.scale(1.1,1.1);
         }
 
     }
