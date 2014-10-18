@@ -122,10 +122,19 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
 	{
 	$i=($page_numb-1)*50+1;
 	}*/
+	$post_numb_on_this_page[0]=0;
+	$i=0;
 	while($post){
-		$post_print=$post -> current();
 		
-		$post_numb_on_page=$page_numb+i;
+		$post_print=$post -> current();
+
+
+
+
+		
+		$post_numb_on_this_page[$i]=$post_print[numb];  //массив который записывает соответствия между позицией поста на странице и номером поста в базе данных. 
+														//его и нужно передавать на форму удаления или одобрения чтобы функция знала к какому посту обращаться
+		$post_numb_on_page=$page_numb;
 		
 		?>
 
@@ -146,6 +155,29 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
             </figcaption>
             <article class="content" role="article"><?php echo $post_print[posttext];?>
             </article>
+
+            <?php /*
+            //======================================ФУНКЦИИ ДОБАВЛЕНИЯ И УДАЛЕНИЯ================================================= 
+            // В форму в $_REQUEST обязаттельно вставить передачу перееменных 
+
+            if($_REQUEST[deletebotton]=='delete')
+            {
+            	$filt=array('numb'=$_REQUEST[data_post_numb],)
+
+            	$post_del=$post->remove($filt);
+            }
+
+            if($_REQUEST[acceptbotton]=='accept')
+            {
+            	//тут короче произойдет магия и пост из бездны переместится на главную страницу. но я еще не придумал как. пока тестирую функцию удаления постов
+            }
+
+            //====================================================================================================================
+            */?>
+
+
+
+
         </figure>
         <!--end QUOTE BLOCK-->
 
