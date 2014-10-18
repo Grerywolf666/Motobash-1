@@ -5,7 +5,26 @@ function mongodb_connect_bezdna ()
 {
 	$Connection = new Mongo("mongodb://localhost:27017");
 	$db = $Connection -> motobashdb;
-	$collect = $db -> newposttest;
+	$collect_bezdna = $db -> newposttest;
+	$collect_count = $db -> count;
+	$collect_main = $db-> main;
+	$like=$db-> like;
+	$ret=array(collect_bezdna=> $collect_bezdna,
+				collect_count=> $collect_count,
+				collect_main=> $collect_main,
+				like=> $like,);
+
+
+
+	return ($ret);
+
+
+} 
+function mongodb_connect_main ()
+{
+	$Connection = new Mongo("mongodb://localhost:27017");
+	$db = $Connection -> motobashdbmain;
+	$collect = $db -> postmain;
 
 	return ($collect);
 
@@ -111,8 +130,10 @@ function postn_bezdna ($page, $collect) // функция которая дос�
 }	
 
 function post_page_bezdna($page_numb=0, $collect)   // печатает посты бездны
-{
+{	
+	$post_all=$collect; 
 	$post=postn_bezdna($page_numb, $collect);
+
 	
 	/*if($page_numb==0)
 	{
@@ -131,7 +152,7 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
 
 
 
-		
+
 		$post_numb_on_this_page[$i]=$post_print[numb];  //массив который записывает соответствия между позицией поста на странице и номером поста в базе данных. 
 														//его и нужно передавать на форму удаления или одобрения чтобы функция знала к какому посту обращаться
 		$post_numb_on_page=$page_numb;
@@ -155,20 +176,42 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
             </figcaption>
             <article class="content" role="article"><?php echo $post_print[posttext];?>
             </article>
+             </figure>
+         <form  action="edit.php" method="POST">
+        		 <input name="post_numb_in_base" type="hidden" value="<?php echo $post_numb_on_this_page[$i];?>">
+				<input name="Edit" type="submit" value="Edit">
 
-            <?php /*
+		</form>
+
+          		 
+
+            <?php
+
+
+
+
+
+
+            /*
             //======================================ФУНКЦИИ ДОБАВЛЕНИЯ И УДАЛЕНИЯ================================================= 
             // В форму в $_REQUEST обязаттельно вставить передачу перееменных 
 
+            // в форму удаления поста нужно передавать переменную data_post_numb=$post_numb_on_this_page[$i]
+
             if($_REQUEST[deletebotton]=='delete')
             {
-            	$filt=array('numb'=$_REQUEST[data_post_numb],)
+            	$filt=array('numb'=$_REQUEST[data_post_numb],); //data_post_numb - позиция поста по базе
 
             	$post_del=$post->remove($filt);
             }
+            // в форму одобрения поста передавать data_post_numb = $post_numb_on_this_page[$i] 
 
             if($_REQUEST[acceptbotton]=='accept')
             {
+            	$fil2=array('numb'=$_REQUEST[data_post_numb],);
+            	$accept_post=$post_all->findOne($fil2);
+            	$collect_main
+
             	//тут короче произойдет магия и пост из бездны переместится на главную страницу. но я еще не придумал как. пока тестирую функцию удаления постов
             }
 
@@ -179,6 +222,11 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
 
 
         </figure>
+         <form  action="edit.php" method="POST">
+        		 <input name="post_numb_in_base" type="hidden" value="<?php echo $post_numb_on_this_page[$i];?>">
+				<input name="Edit" type="submit" value="Edit">
+
+		</form>
         <!--end QUOTE BLOCK-->
 
 

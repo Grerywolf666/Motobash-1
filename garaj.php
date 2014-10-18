@@ -1,6 +1,7 @@
 ﻿<?php include("header.php");
 $collect=mongodb_connect_bezdna ();
-$pagen = Whatpagenumber($collect, $_REQUEST['pagen']);?>
+//$collect_main=mongodb_connect_main ();
+$pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen']);?>
 
 
 <main role="main">
@@ -10,17 +11,17 @@ $pagen = Whatpagenumber($collect, $_REQUEST['pagen']);?>
 	?>
 
         <!--start PAGINATION BLOCK-->
-      <?php page_count_number($pagen,$collect); ?>
+      <?php page_count_number($pagen,$collect[collect_bezdna]); ?>
         <!--end PAGINATION BLOCK-->
 
 
 
         <!--start QUITE BLOCK-->
-        <?php	$i=0; post_page_bezdna($pagen, $collect); ?>
+        <?php	$i=0; post_page_bezdna($pagen, $collect[collect_bezdna]); ?>
         <!--end QUOTE BLOCK-->
 
         <!--start PAGINATION BLOCK-->
-        <?php page_count_number($pagen, $collect); ?>
+        <?php page_count_number($pagen, $collect[collect_bezdna]); ?>
         <!--end PAGINATION BLOCK-->
 <?php }
 	else

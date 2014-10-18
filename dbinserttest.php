@@ -11,7 +11,7 @@ $db = $Connection -> motobashdb;
 //urs_numb = $db -> post;
 //$curs_numb=$collection -> find();
 for ($h=0; $h < 100; $h++) { 
-	$collection = $db -> newpostt;
+	$collection = $db -> newposttest;;
 $curs_numb = $collection -> find();
 $curs_numb -> sort(array("numb" => -1 ));
 $curs_numb -> limit(1);

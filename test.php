@@ -1,10 +1,17 @@
 
+<?php  include("header.php"); 
 
 
 
-include("functions.php");
+            {
+            	$filt=array('numb'=$_REQUEST[post_numb_in_base],)
 
-$collect= mongodb_connect_bezdna();
+            	$post_del=$post->remove($filt);
+            }
 
-echo $pagen;
+
+ include("footer.php");
+
+
+
 ?>
