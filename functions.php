@@ -7,12 +7,14 @@ function mongodb_connect_bezdna ()
 	$db = $Connection -> motobashdb;
 	$collect_bezdna = $db -> newposttest;
 	$collect_count = $db -> count;
+	$collect_count_new = $db -> count_new;
 	$collect_main = $db-> main;
 	$like=$db-> like;
 	$ret=array(collect_bezdna=> $collect_bezdna,
 				collect_count=> $collect_count,
 				collect_main=> $collect_main,
-				like=> $like,);
+				like=> $like,
+				collect_count_new=> $collect_count_new);
 
 
 
