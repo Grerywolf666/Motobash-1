@@ -218,15 +218,6 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
             //====================================================================================================================
             */?>
 
-
-
-
-        </figure>
-         <form  action="edit.php" method="POST">
-        		 <input name="post_numb_in_base" type="hidden" value="<?php echo $post_numb_on_this_page[$i];?>">
-				<input name="Edit" type="submit" value="Edit">
-
-		</form>
         <!--end QUOTE BLOCK-->
 
 
