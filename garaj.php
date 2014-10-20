@@ -1,10 +1,15 @@
 ﻿<?php include("header.php");
 $collect=mongodb_connect_bezdna ();
 //$collect_main=mongodb_connect_main ();
-$pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen']);?>
+$pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen']);
+
+//echo "Итог по переменной == $pagen";
+?>
 
 
 <main role="main">
+
+
 
 <?php if($pagen!='PageError!')
 {
