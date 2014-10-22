@@ -153,8 +153,8 @@ function postn_main ($page, $collect) // функция которая дост�
 
 function post_page_bezdna($page_numb=0, $collect)   // печатает посты бездны
 {	
-	$post_all=$collect; 
-	$post=postn_bezdna($page_numb, $collect); // достаем из базы требуемое нам количество постов, и курсор с данной выборкой запихиваем $post
+	$post_all=$collect[collect_bezdna]; 
+	$post=postn_bezdna($page_numb, $collect[collect_bezdna]); // достаем из базы требуемое нам количество постов, и курсор с данной выборкой запихиваем $post
 
 	$post_numb_on_this_page[0]=0;
 	$i=0;
@@ -169,7 +169,8 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
 		$post_numb_on_this_page[$i]=$post_print[numb];  //массив который записывает соответствия между позицией поста на странице и номером поста в базе данных. 
 														//его и нужно передавать на форму удаления или одобрения чтобы функция знала к какому посту обращаться
 		$post_numb_on_page=$page_numb;
-		
+		$like_db=$collect[like];
+		//-----------------------============================= открыть рейтинг постов видимым только для Одминов. Сделать когда доделаю куки
 		?>
 
 
@@ -177,7 +178,22 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
         <figure id="quote-1">
             <figcaption class="actions">
                 <div class="rating">
-                    <a class="grade" href="#">+</a><span class="value">1000</span><a class="downgrade" href="#">-</a>
+                    <a class="grade" href="#">
+                     <form  action="up_down_likes.php" method="POST">
+					<input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>"><br>
+					<input name="submit" type="submit" value="+">
+					</form>
+
+                    </a><span class="value"><?php echo show_like($post_print[numb],$like_db) ;?> </span><a class="downgrade" href="#">
+
+                    	 <form  action="up_down_likes.php" method="POST">
+						<input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>"><br>
+						<input name="submit" type="submit" value="-">
+						</form>
+
+
+
+                    </a>
                 </div>
                 <div class="share" id="s1">Поделиться</div>
                 <div class="pubdate">
@@ -434,7 +450,7 @@ function page_count_number($page=0, $collect)     // функция перекл
 	}
 	else 
 	{
-		echo "вывод $all_post_count<br>";
+		//echo "вывод $all_post_count<br>";
 	
 	return ($all_page_numb);
 
@@ -621,8 +637,9 @@ function page_count_number_main($page=0, $collect)     // функция пер�
 
 function post_page_main($page_numb=0, $collect)   // печатает посты ГЛАВНОЙ страницы
 {	
-	$post_all=$collect; 
-	$post=postn_main($page_numb, $collect);
+	$post_all=$collect[collect_main]; 
+	$post=postn_main($page_numb, $collect[collect_main]);
+
 
 	
 	/*if($page_numb==0)
@@ -646,7 +663,7 @@ function post_page_main($page_numb=0, $collect)   // печатает посты
 		$post_numb_on_this_page[$i]=$post_print[numb];  //массив который записывает соответствия между позицией поста на странице и номером поста в базе данных. 
 														//его и нужно передавать на форму удаления или одобрения чтобы функция знала к какому посту обращаться
 		$post_numb_on_page=$page_numb;
-		
+		$like_db=$collect[like];
 		?>
 
 
@@ -654,7 +671,22 @@ function post_page_main($page_numb=0, $collect)   // печатает посты
         <figure id="quote-1">
             <figcaption class="actions">
                 <div class="rating">
-                    <a class="grade" href="#">+</a><span class="value">1000</span><a class="downgrade" href="#">-</a>
+                    <a class="grade" href="#">
+                     <form  action="up_down_likes.php" method="POST">
+					<input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>"><br>
+					<input name="submit" type="submit" value="+">
+					</form>
+
+                    </a><span class="value"><?php echo show_like($post_print[numb],$like_db) ;?> </span><a class="downgrade" href="#">
+
+                    	 <form  action="up_down_likes.php" method="POST">
+						<input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>"><br>
+						<input name="submit" type="submit" value="-">
+						</form>
+
+
+
+                    </a>
                 </div>
                 <div class="share" id="s1">Поделиться</div>
                 <div class="pubdate">
@@ -704,6 +736,57 @@ function post_page_main($page_numb=0, $collect)   // печатает посты
 
 	}
 	
+}
+
+function show_like($post_number, $likes_db)		// просто узнает на сколько говняный ваш пост
+{
+	$filt=array(post_numb=> $post_number,);
+	$post=$likes_db-> findOne($filt);
+	if($post)
+		return($post[like]);
+	else
+		{return(0);}
+}
+function up_like($post_number, $likes_db, $updown)  //функция лайков. Если третий аргумент TRUE то тогда апаем, если FALSE то видать пост говно
+{	
+	$post_n=(int) $post_number;
+	$filt=array(post_numb=> $post_n,);
+	$post=$likes_db-> findOne($filt);
+	if($post)
+		{
+			$n=$post[like];
+			if($updown==TRUE)
+			{
+				$nn=$n+1;
+			}
+			elseif ($updown==FALSE) {
+				$nn=$n-1;
+			}
+
+			$new_like=array( post_numb=> $post_n,
+				like=>$nn, );
+			$filt=array( post_numb=> $post_n,
+				like=>$n,);
+			$likes_db->update($filt,$new_like);
+
+
+		}
+	else
+		{
+
+			if($updown==TRUE)
+			{
+				$nn=1;
+			}
+			elseif ($updown==FALSE) {
+				$nn=-1;
+			}
+
+			$new_like=array( post_numb=> $post_n,
+				like=>$nn, );
+			$likes_db->insert($new_like);
+		}
+
 }
 
 

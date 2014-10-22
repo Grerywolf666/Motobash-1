@@ -22,7 +22,7 @@ $pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen']);
 
 
         <!--start QUITE BLOCK-->
-        <?php	$i=0; post_page_bezdna($pagen, $collect[collect_bezdna]); ?>
+        <?php	$i=0; post_page_bezdna($pagen, $collect); ?>
         <!--end QUOTE BLOCK-->
 
         <!--start PAGINATION BLOCK-->

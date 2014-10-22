@@ -17,7 +17,7 @@ $pagen = Whatpagenumber($collect[collect_main], $_REQUEST['pagen']);?>
 
 
         <!--start QUITE BLOCK-->
-        <?php   $i=0; post_page_main($pagen, $collect[collect_main]); ?>
+        <?php   $i=0; post_page_main($pagen, $collect); ?>
         <!--end QUOTE BLOCK-->
 
         <!--start PAGINATION BLOCK-->
