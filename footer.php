@@ -1,4 +1,4 @@
-﻿   <html> <!--start FOOTER BLOCK-->
+﻿<!--start FOOTER BLOCK-->
     <footer role="contentinfo">
         <p class="copyright">Идея проекта &copy; bash.org</p>
         <p>Реализация и плюшки &copy; 2013, команда motobash.ru.</p>

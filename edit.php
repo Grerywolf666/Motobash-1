@@ -1,7 +1,6 @@
-<?php 
-include("header.php"); 
+<?php include("header.php"); ?>
 
-
+<?php
 if( $_REQUEST[update]=='update' )
 {
 
@@ -10,7 +9,6 @@ $collect=mongodb_connect_bezdna();
 
 $n=(int)$_REQUEST[post_numb_in_base];
 $filt=array( "numb"=> $n);
-//echo "<br><br>$_REQUEST[post_numb_in_base]<br><br>$n<br><br>";
 
 $post=$collect[collect_bezdna]-> findOne($filt);
 //$post_data_temp=$post[postdata];
