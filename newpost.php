@@ -14,7 +14,7 @@
 
 <form action="add.php" method="POST" name="addform">
 
-<p><label>Ваш e-mail: <input type="text" name="usermail" maxlength="50"></label></p>
+<p><label>Ваш e-mail: <input type="text" name="usermail" autofocus maxlength="50"></label></p>
 <p><textarea name="usertext" cols="50" rows="6"></textarea></p>
 <p><input type="submit" name="newpost" value="Отправить на рассмотрение"></p>
 </form></html>

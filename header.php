@@ -34,7 +34,7 @@
         <div id="search-form" class="search-form">
             <form role="search" action="#">
                 <label for="search">Поиск: </label>
-                <input autofocus name="search" placeholder="Ключевое слово или номер цитаты" id="search" type="search"/>
+                <input name="search" placeholder="Ключевое слово или номер цитаты" id="search" type="search"/>
                 <button type="submit" name="search-submit">Искать</button>
             </form>
         </div>
@@ -43,11 +43,11 @@
         <!--start MAIN NAVIGATION BLOCK-->
         <nav id="main-menu" class="main-menu" role="navigation">
             <ul>
-                <li><a href="#" title="Последние одобренные цитаты">последние</a></li>
+                <li><a href="/" title="Последние одобренные цитаты">последние</a></li>
                 <li><a href="#" title="Случайно выбранная цитата">случайная</a></li>
                 <li><a href="#" title="Цитаты, бережно отобранные админами сайта">лучшие</a></li>
                 <li><a href="#" title="Цитаты, набравшие наибольшее количество плюсов">по рейтингу</a></li>
-                <li><a href="#" title="Есть интересная история? Присылай!">добавить</a></li>
+                <li><a href="/newpost.php" title="Есть интересная история? Присылай!">добавить</a></li>
                 <li><a href="#" title="Все цитаты, добавленные на сайта">Бездна</a></li>
                 <li><a href="#" title="Лучшие цитаты, добавленные вами">топ Бездны</a></li>
             </ul>
