@@ -20,27 +20,45 @@ $collection = mongodb_connect_bezdna ();
 /*for ($h=0; $h < 100; $h++) 
 { 
 	$post_text_temp=$_REQUEST['usertext'].'пост номер '.$h;*/
-$curs_numb = $collection -> find();
+/*curs_numb = $collection[collect_bezdna] -> find();
 $curs_numb -> sort(array("numb" => -1 ));
 $curs_numb -> limit(1);
 
 $curs_numb -> rewind();
 
 $i = $curs_numb -> current();
-//var_dump($i);
+
 $post_numb = (int)($i['numb']+1);
-//var_dump($post_numb);
-//echo $post_numb;
+*/
+//
+$post_numb=$collection[collect_count] -> findOne();
+if($post_numb[all_post_numb])
+{
+	$temp=array (all_post_numb=> $post_numb[all_post_numb],);
+	$new_post_numb=$post_numb[all_post_numb]+1;
+	$filt=array(all_post_numb=> $new_post_numb,);
+	$collection[collect_count]->update($temp, $filt);
+}
+else
+{
+	$t2=array(all_post_numb=> 1,);
+	$collection[collect_count]->insert($t2);
+	$new_post_numb=1;
+
+}
+//$new=array(count)
+//$collection[collec_count]->
 $data = array(
 	//id
     postdate => "$post_data_temp",
    // posttime => "$post_time_temp",
     postemail => "$umail_temp",
     posttext => "$post_text_temp",
-    numb => $post_numb,
+    numb => $new_post_numb,
+
 
 );
-$collection -> insert( $data );
+$collection[collect_bezdna] -> insert( $data );
 //var_dump($data);
 //$cursor = $collection->find();
 

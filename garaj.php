@@ -1,16 +1,22 @@
 ﻿<?php include("header.php");
 $collect=mongodb_connect_bezdna ();
-$pagen = Whatpagenumber($collect, $_REQUEST['pagen']);?>
+//$collect_main=mongodb_connect_main ();
+$pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen']);
+
+//echo "Итог по переменной == $pagen";
+?>
 
 
 <main role="main">
+
+
 
 <?php if($pagen!='PageError!')
 {
 	?>
 
         <!--start PAGINATION BLOCK-->
-      <?php page_count_number($pagen,$collect); ?>
+      <?php page_count_number($pagen,$collect[collect_bezdna]); ?>
         <!--end PAGINATION BLOCK-->
 
 
@@ -20,7 +26,7 @@ $pagen = Whatpagenumber($collect, $_REQUEST['pagen']);?>
         <!--end QUOTE BLOCK-->
 
         <!--start PAGINATION BLOCK-->
-        <?php page_count_number($pagen, $collect); ?>
+        <?php page_count_number($pagen, $collect[collect_bezdna]); ?>
         <!--end PAGINATION BLOCK-->
 <?php }
 	else
