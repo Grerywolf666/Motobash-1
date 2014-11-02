@@ -183,6 +183,9 @@ main {
   float: right;
   margin-left: 5px;
 }
+.main-menu {
+  margin-top: 1em;
+}
 .main-menu ul {
   list-style: none;
   display: block;
@@ -263,4 +266,55 @@ main {
   -o-transform: scale(1.1, 1.1);
   -webkit-transform: scale(1.1, 1.1);
   transform: scale(1.1, 1.1);
+}
+.quote {
+  margin-bottom: 1em;
+  overflow: hidden;
+}
+.quote article {
+  padding: 0.5em;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px dotted #333;
+}
+.quote .share {
+  display: inline-block;
+  margin-left: 7em;
+}
+.quote .pubdate {
+  display: inline-block;
+  margin-left: 10em;
+}
+.quote .rating {
+  display: inline-block;
+}
+.quote .rating .grade,
+.quote .rating .downgrade {
+  display: inline-block;
+}
+.quote .rating .grade form,
+.quote .rating .downgrade form {
+  display: inline-block;
+}
+.quote .rating .grade form [type="submit"],
+.quote .rating .downgrade form [type="submit"] {
+  display: inline-block;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.quote .rating .grade form [type="submit"]:hover,
+.quote .rating .downgrade form [type="submit"]:hover {
+  color: red;
+  background: rgba(255, 255, 255, 0.7);
+}
+.quote .rating .value {
+  display: inline-block;
+  width: 50px;
+  text-align: center;
+}
+.quote .edit {
+  float: right;
+}
+.quote .id {
+  float: right;
 }
