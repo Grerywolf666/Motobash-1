@@ -5,12 +5,17 @@
 
 if($_REQUEST['usertext'])
 {
+	if (filter_var($_REQUEST['usermail'], FILTER_VALIDATE_EMAIL))     // функция проверки email. пропускает любые адреса формата xxx@yyy.zz. Но кирилицу не пропускает) 
+	{
+
+	
 	?>
 	<p>Ваш пост успешно добавлен и отправлен на рассмотрение в бездну. Очень скоро вы сможете его увидеть на главной странице</p>
 
 <?php
 $umail_temp=$_REQUEST['usermail'];
-$post_text_temp=$_REQUEST['usertext'];
+$post_text_temp=strip_tags($_REQUEST['usertext'], "<br>"); 	     //функция удаляет все теги html и php из текста кроме тега <br>
+//$post_text_temp=$_REQUEST['usertext'];
 $post_data_temp = date('d-m-Y h:i');
 //echo $post_time_temp;
 //$Connection = new Mongo("mongodb://localhost:27017", array("connect" => TRUE));
@@ -64,6 +69,12 @@ $collection[collect_bezdna] -> insert( $data );
 
 /*}*/
 }
+else
+{
+	echo "<br> Вы ввели некорретный Email адресс <br>";
+}
+}
+
 else
 {
 	echo "<p>Ну просто нежданчик. Иногда бывает</p>";

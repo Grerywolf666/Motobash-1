@@ -17,3 +17,14 @@ Echo "<br><br>Пост одобрен<br><br>";
 
  include("footer.php");
  ?>
+
+ <form  action="up_down_likes.php" method="POST">
+<input name="nuber" type="hidden" value="<?php echo $post_print[numb]; ?>"><br>
+<input name="submit" type="submit" value="+">
+</form>
+
+
+<form  action="up_down_likes.php" method="POST">
+<input name="nuber" type="hidden" value="<?php echo $post_print[numb]; ?>"><br>
+<input name="submit" type="submit" value="-">
+</form>
