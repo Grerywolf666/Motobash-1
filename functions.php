@@ -8,11 +8,9 @@ function mongodb_connect_bezdna ()
 	$collect_bezdna = $db -> newdb;   //база данных постов бездны
 	$collect_count = $db -> count;			//количество постов бездны
 	$collect_count_new = $db -> count_new;  //количество постов на главной странице. (одобреных постов)
-	$collect_main = $db-> main;				//база одобреных постов
 	$like=$db-> like;						//база данных лайков
 	$ret=array(collect_bezdna=> $collect_bezdna,	
 				collect_count=> $collect_count,
-				collect_main=> $collect_main,
 				like=> $like,
 				collect_count_new=> $collect_count_new);
 
