@@ -27,7 +27,7 @@
 
             <!--start SEARCH FORM BLOCK-->
             <div id="search-form" class="search-form">
-                <form role="search" action="#">
+                <form role="search" action="search.php" method="POST">
                     <label for="search">Поиск: </label>
                     <input name="search" placeholder="Ключевое слово или номер цитаты" id="search" type="search"/>
                     <button type="submit" name="search-submit">Искать</button>
@@ -48,7 +48,7 @@
                     <li><a href="#" title="Цитаты, бережно отобранные админами сайта">лучшие</a></li>
                     <li><a href="#" title="Цитаты, набравшие наибольшее количество плюсов">по рейтингу</a></li>
                     <li><a href="/newpost.php" title="Есть интересная история? Присылай!">добавить</a></li>
-                    <li><a href="#" title="Все цитаты, добавленные на сайта">Бездна</a></li>
+                    <li><a href="/garaj.php" title="Все цитаты, добавленные на сайт">Бездна</a></li>
                     <li><a href="#" title="Лучшие цитаты, добавленные вами">топ Бездны</a></li>
                 </ul>
             </nav>

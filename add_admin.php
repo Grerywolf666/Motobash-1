@@ -33,7 +33,6 @@ if($_POST[login]=="admin") {
 }
 else
 { ?>
-
 <form  action="add_admin.php" method="POST">
 
 Логин <input name="login" type="text"><br>
@@ -41,6 +40,7 @@ else
 Пароль <input name="password" type="password"><br>
 
 <input name="submit" type="submit" value="Авторизироваться">
+
 
 </form> <?php  
 }

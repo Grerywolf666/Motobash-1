@@ -1,7 +1,7 @@
 ﻿<?php include("header.php");
 $collect=mongodb_connect_bezdna ();
 //$collect_main=mongodb_connect_main ();
-$pagen = Whatpagenumber($collect[collect_main], $_REQUEST['pagen']);?>
+$pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen'],"accepted");?>
 
 
 <main role="main">
@@ -11,17 +11,17 @@ $pagen = Whatpagenumber($collect[collect_main], $_REQUEST['pagen']);?>
     ?>
 
         <!--start PAGINATION BLOCK-->
-      <?php page_count_number_main($pagen,$collect[collect_main]); ?>
+      <?php page_count_number($pagen,$collect[collect_bezdna],"accepted"); ?>
         <!--end PAGINATION BLOCK-->
 
 
 
         <!--start QUITE BLOCK-->
-        <?php   $i=0; post_page_main($pagen, $collect); ?>
+        <?php   $i=0; post_page_bezdna($pagen, $collect, "accepted");; ?>
         <!--end QUOTE BLOCK-->
 
         <!--start PAGINATION BLOCK-->
-        <?php page_count_number_main($pagen, $collect[collect_main]); ?>
+        <?php page_count_number($pagen, $collect[collect_bezdna],"accepted"); ?>
         <!--end PAGINATION BLOCK-->
 <?php }
     else

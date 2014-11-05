@@ -5,7 +5,7 @@ function mongodb_connect_bezdna ()
 {
 	$Connection = new Mongo("mongodb://localhost:27017");
 	$db = $Connection -> motobashdb;
-	$collect_bezdna = $db -> newposttest;   //база данных постов бездны
+	$collect_bezdna = $db -> newdb;   //база данных постов бездны
 	$collect_count = $db -> count;			//количество постов бездны
 	$collect_count_new = $db -> count_new;  //количество постов на главной странице. (одобреных постов)
 	$collect_main = $db-> main;				//база одобреных постов
@@ -95,7 +95,7 @@ function get_date_time($date) // функция получения времен�
 
 }
 
-function postn_bezdna ($page, $collect) // функция которая достает нужное количество постов из БД для бездны
+function postn_bezdna ($page, $collect, $status) // функция которая достает нужное количество постов из БД для бездны
 
 {
 	//$Connection = new Mongo("mongodb://localhost:27017");
@@ -115,46 +115,24 @@ function postn_bezdna ($page, $collect) // функция которая дос�
 	$k=($all_page_numb-$page)*50;
 	}
 
-	$post = $collect -> find(); 
-	$post -> sort(array("numb" => -1 ));
+	$post = $collect -> find(array(status =>$status  )); 
+	if($status=="accepted")
+		$post -> sort(array("numb_new" => -1 ));
+	else
+		$post -> sort(array("numb" => -1 ));
+	
 	$post -> skip($k);
 	$post -> limit(50);   // тут указываешь сколько постов будет на странице
 	$post -> rewind();
 	return($post);
 }	
-
-function postn_main ($page, $collect) // функция которая достает нужное количество постов из БД для ГЛАВНОЙ СТРАНИЦы
-
-{
-	//$Connection = new Mongo("mongodb://localhost:27017");
-	//$db = $Connection -> motobashdb;
 
 	
-	$all_post_count = $collect -> count();    // находим количество постов. позже переписать на ГЛОБАЛ
-	$all_page_numb = intval ($all_post_count/50);
-	$j=$all_post_count%50;
-	//echo "$j <br>";
-	if ($j) 
-	{
-		$all_page_numb++;
-	}
-	if($page!=0)
-	{
-	$k=($all_page_numb-$page)*50;
-	}
 
-	$post = $collect -> find(); 
-	$post -> sort(array("numb_new" => -1 ));
-	$post -> skip($k);
-	$post -> limit(50);   // тут указываешь сколько постов будет на странице
-	$post -> rewind();
-	return($post);
-}	
-
-function post_page_bezdna($page_numb=0, $collect)   // печатает посты бездны
+function post_page_bezdna($page_numb=0, $collect, $status)   // печатает посты бездны
 {	
 	$post_all=$collect[collect_bezdna]; 
-	$post=postn_bezdna($page_numb, $collect[collect_bezdna]); // достаем из базы требуемое нам количество постов, и курсор с данной выборкой запихиваем $post
+	$post=postn_bezdna($page_numb, $collect[collect_bezdna], $status); // достаем из базы требуемое нам количество постов, и курсор с данной выборкой запихиваем $post
 
 	$post_numb_on_this_page[0]=0;
 	$i=0;
@@ -166,7 +144,7 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
 
 
 
-		$post_numb_on_this_page[$i]=$post_print[numb];  //массив который записывает соответствия между позицией поста на странице и номером поста в базе данных. 
+		  //массив который записывает соответствия между позицией поста на странице и номером поста в базе данных. 
 														//его и нужно передавать на форму удаления или одобрения чтобы функция знала к какому посту обращаться
 		$post_numb_on_page=$page_numb;
 		$like_db=$collect[like];
@@ -175,25 +153,23 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
 
 
 		<!--start QUITE BLOCK-->
-        <figure id="quote-1">
+        <figure id="quote-<?php echo $post_print[numb]; ?>" class="quote">
             <figcaption class="actions">
+                <div class="id">#<?php echo $post_print[numb]; ?></div>
                 <div class="rating">
-                    <a class="grade" href="#">
-                     <form  action="up_down_likes.php" method="POST">
-					<input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>"><br>
-					<input name="submit" type="submit" value="+">
-					</form>
-
-                    </a><span class="value"><?php echo show_like($post_print[numb],$like_db) ;?> </span><a class="downgrade" href="#">
-
-                    	 <form  action="up_down_likes.php" method="POST">
-						<input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>"><br>
-						<input name="submit" type="submit" value="-">
-						</form>
-
-
-
-                    </a>
+                    <div class="grade">
+                        <form  action="up_down_likes.php" method="POST">
+                            <input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>">
+                            <input name="submit" type="submit" value="+">
+                        </form>
+                    </div>
+                    <span class="value"><?php echo show_like($post_print[numb],$like_db) ;?> </span>
+                    <div class="downgrade">
+                        <form  action="up_down_likes.php" method="POST">
+                            <input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>">
+                            <input name="submit" type="submit" value="-">
+                        </form>
+                    </div>
                 </div>
                 <div class="share" id="s1">Поделиться</div>
                 <div class="pubdate">
@@ -201,16 +177,17 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
                     	<span class="day"><?php echo get_date_day($post_print[postdate]); ?></span>-<span class="month"><?php echo get_date_month($post_print[postdate]); ?></span>-<span class="year"><?php echo get_date_year($post_print[postdate]); ?></span> <span class="time"><?php echo get_date_time($post_print[postdate]); ?></span>
                     </time>
                 </div>
-                <div class="id">#<?php echo $post_print[numb]; ?></div>
             </figcaption>
-            <article class="content" role="article"><?php echo $post_print[posttext];?>
+            <article class="content" role="article">
+                <?php echo $post_print[posttext];?>
             </article>
-             </figure>
-         <form  action="edit.php" method="POST">
-        		 <input name="post_numb_in_base" type="hidden" value="<?php echo $post_numb_on_this_page[$i];?>">
-				<input name="Edit" type="submit" value="Edit">
-
-		</form>
+            <div class="edit">
+                <form  action="edit.php" method="POST">
+                    <input name="post_numb_in_base" type="hidden" value="<?php echo $post_print[numb];?>">
+                    <input name="Edit" type="submit" value="Edit">
+                </form>
+            </div>
+        </figure>
 
           		 
 
@@ -244,7 +221,7 @@ function post_page_bezdna($page_numb=0, $collect)   // печатает пост
 	}
 	
 }
-function page_count_number($page=0, $collect)     // функция переключения страниц. меню переключения страниц в БЕЗДНЕ
+function page_count_number($page=0, $collect, $status)     // функция переключения страниц. меню переключения страниц в БЕЗДНЕ
 {
 	
 	/*if ($ma==1)
@@ -252,7 +229,7 @@ function page_count_number($page=0, $collect)     // функция перекл
 	else if($ma=="main")
 		$collect=$collection[collect_main];
 		*/
-	$all_post_numb = $collect -> find(); 		//находим ВСЕ посты базы
+	$all_post_numb = $collect -> find(array(status =>$status  )); 		//находим ВСЕ посты базы
 	$all_post_numb = $collect -> count();		// считаем сколько их
 	
 	$all_page_numb= intval ($all_post_numb/50);  // по 50 постов на страницу планируется пока
@@ -423,8 +400,11 @@ function page_count_number($page=0, $collect)     // функция перекл
 ?>
 
 
-<?php function Whatpagenumber($collect, $pagen)  // функция втыкает на какой мы странице
+<?php function Whatpagenumber($collect, $pagen, $status)  // функция втыкает на какой мы странице
 {
+
+
+		$collect = $collect -> find(array(status =>$status  )); 
 		$all_post_count = $collect -> count();
 		//echo "количесво всех постов $all_post_count <br>";
 		$all_page_numb = intval ($all_post_count/50);
@@ -459,280 +439,7 @@ function page_count_number($page=0, $collect)     // функция перекл
 }
 
 
-function page_count_number_main($page=0, $collect)     // функция переключения страниц. меню переключения страниц на ГЛАВНОЙ СТРАНИЦЕ
-{
-	
-	/*if ($ma==1)
-		{$collect=$collection[collect_bezdna];}
-	else if($ma=="main")
-		$collect=$collection[collect_main];
-		*/
-	$all_post_numb = $collect -> find(); 
-	$all_post_numb = $collect -> count();
-	//var_dump($all_page_numb);
-	//$all_post_numb=2351;
-	$all_page_numb = intval ($all_post_numb/50);
-	$j = $all_post_numb%50;
-	//echo "$j <br>";
-	if ($j) 
-	{
-		$all_page_numb++;
-	}
-	//echo "$all_page_numb <br>";
-	$adr='/index.php?pagen=';
-	if($page == 0)
-	{
-		$page=$all_page_numb;
-	}
 
-	?>
-
-	<!--start PAGINATION BLOCK-->
-        <nav class="pagination" role="navigation">
-            <ul>
-
-	<?php 
-	if (($all_page_numb-$page)>=1) 
-	{
-		$adr_temp1=$page+1;
-		$adr_temp=$adr.$adr_temp1;
-
-		?>
-			<li><a href="<?php echo $adr_temp; ?>" rel="prev">&larr;</a></li>
-
-		<?php
-
-	}
-
-	if (($all_page_numb-$page)>3)
-	{
-		
-
-		$adr_temp1=$all_page_numb;
-		$adr_temp=$adr.$adr_temp1;
-		?>
-		<li><a href="<?php echo $adr_temp; ?>" rel="next"><?php echo $adr_temp1; ?></a></li>
-		<li><span>...</span></li>
-
-		<?php
-
-
-	}
-
-
-	if (($all_page_numb-$page)==3)
-	{
-		
-
-		$adr_temp1=$page+3;
-		$adr_temp=$adr.$adr_temp1;
-		?>
-		<li><a href="<?php echo $adr_temp; ?>" rel="next"><?php echo $adr_temp1; ?></a></li>
-
-		<?php
-
-
-	}
-
-	if (($all_page_numb-$page)>=2)
-	{
-		
-
-		$adr_temp1=$page+2;
-		$adr_temp=$adr.$adr_temp1;
-		?>
-		<li><a href="<?php echo $adr_temp; ?>" rel="next"><?php echo $adr_temp1; ?></a></li>
-
-		<?php
-
-
-	}
-
-	if (($all_page_numb-$page)>=1)
-	{
-		
-
-		$adr_temp1=$page+1;
-		$adr_temp=$adr.$adr_temp1;
-		?>
-		<li><a href="<?php echo $adr_temp; ?>" rel="next"><?php echo $adr_temp1; ?></a></li>
-
-		<?php
-
-
-	}
-	
-
-
-	/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<текущая страница>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-	?> 
-	<li><span class="this-page"><?php echo $page;?> </span></li>
-	<?php
-
-	$k=($all_page_numb-$page)*50;
-
-	if ((($all_post_numb>50) and (($all_post_numb-$k)>50)) )
-	{
-		$adr_temp1=$page-1;
-		$adr_temp=$adr.$adr_temp1;
-		?>
-		<li><a href="<?php echo $adr_temp; ?>" rel="next"><?php echo $adr_temp1; ?></a></li>
-
-		<?php
-		//echo "походу пашет.";
-
-	}
-	if ((($all_post_numb>100) and (($all_post_numb-$k)>100)) )
-	{
-		$adr_temp1=$page-2;
-		$adr_temp=$adr.$adr_temp1;
-		?>
-		<li><a href="<?php echo $adr_temp; ?>" rel="next"><?php echo $adr_temp1; ?></a></li>
-
-		<?php
-		//echo "походу пашет.";
-
-	}
-	if(($page==4) and ($all_post_numb>150))
-	{
-		$adr_temp1=1;
-		$adr_temp=$adr.$adr_temp1;
-		?>
-		<li><a href="<?php echo $adr_temp; ?>" rel="next"><?php echo $adr_temp1; ?></a></li>
-
-		<?php
-
-	}
-	if (($page>4) and ($all_post_numb>200))
-	{
-		$adr_temp1=1;
-		$adr_temp=$adr.$adr_temp1;
-		?>
-		<li><span>...</span></li>
-		<li><a href="<?php echo $adr_temp; ?>" rel="next"><?php echo $adr_temp1; ?></a></li>
-
-		<?php
-	}
-	if ((($all_post_numb>50) and (($all_post_numb-$k)>50)) )
-	{
-		$adr_temp1=$page-1;
-		$adr_temp=$adr.$adr_temp1;
-		?>
-		 <li><a href="<?php echo $adr_temp; ?>" rel="next">&rarr;</a></li>
-
-		<?php
-		//echo "походу пашет.";
-
-	}
-		?>
-
- 			</ul>
-        </nav>
-        <!--end PAGINATION BLOCK-->
-	<?php 
-
-
-
-}
-
-function post_page_main($page_numb=0, $collect)   // печатает посты ГЛАВНОЙ страницы
-{	
-	$post_all=$collect[collect_main]; 
-	$post=postn_main($page_numb, $collect[collect_main]);
-
-
-	
-	/*if($page_numb==0)
-	{
-		$i=1;
-	}
-	else
-	{
-	$i=($page_numb-1)*50+1;
-	}*/
-	$post_numb_on_this_page[0]=0;
-	$i=0;
-	while($post){
-		
-		$post_print=$post -> current();
-
-
-
-
-
-		$post_numb_on_this_page[$i]=$post_print[numb];  //массив который записывает соответствия между позицией поста на странице и номером поста в базе данных. 
-														//его и нужно передавать на форму удаления или одобрения чтобы функция знала к какому посту обращаться
-		$post_numb_on_page=$page_numb;
-		$like_db=$collect[like];
-		?>
-
-
-		<!--start QUITE BLOCK-->
-        <figure id="quote-<?php echo $post_print[numb]; ?>" class="quote">
-            <figcaption class="actions">
-                <div class="id">#<?php echo $post_print[numb]; ?></div>
-                <div class="rating">
-                    <div class="grade">
-                        <form  action="up_down_likes.php" method="POST">
-                            <input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>">
-                            <input name="submit" type="submit" value="+">
-                        </form>
-                    </div>
-                    <span class="value"><?php echo show_like($post_print[numb],$like_db) ;?> </span>
-                    <div class="downgrade">
-                        <form  action="up_down_likes.php" method="POST">
-                            <input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>">
-                            <input name="submit" type="submit" value="-">
-                        </form>
-                    </div>
-                </div>
-                <div class="share" id="s1">Поделиться</div>
-                <div class="pubdate">
-                    <time datetime="<?php echo '$post_print[postdate]'; ?>" pubdate>
-                    	<span class="day"><?php echo get_date_day($post_print[postdate]); ?></span>-<span class="month"><?php echo get_date_month($post_print[postdate]); ?></span>-<span class="year"><?php echo get_date_year($post_print[postdate]); ?></span> <span class="time"><?php echo get_date_time($post_print[postdate]); ?></span>
-                    </time>
-                </div>
-            </figcaption>
-            <article class="content" role="article">
-                <?php echo $post_print[posttext];?>
-            </article>
-            <div class="edit">
-                <form  action="edit.php" method="POST">
-                    <input name="post_numb_in_base" type="hidden" value="<?php echo $post_numb_on_this_page[$i];?>">
-                    <input name="Edit" type="submit" value="Edit">
-                </form>
-            </div>
-        </figure>
-            <?php
-
-
-
-
-
-
-            /*
-            //======================================ФУНКЦИИ ДОБАВЛЕНИЯ И УДАЛЕНИЯ================================================= 
-         
-
-            //====================================================================================================================
-            */?>
-
-        <!--end QUOTE BLOCK-->
-
-
-
-
-
-
-<?php
-		//$i++;
-		if($post ->hasNext())
-			{$post -> next();}
-		else{break;}
-
-	}
-	
-}
 
 function show_like($post_number, $likes_db)		// просто узнает на сколько говняный ваш пост
 {

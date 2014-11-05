@@ -30,11 +30,12 @@
                 postemail => "$post[postemail]",
                 posttext => "$post[posttext]",
                 numb_new => $tt,
-                numb => $n
+                numb => $n,
+                status=> "accepted",
             );
 
-            $collect[collect_main] -> insert( $new_data );
-            $collect[collect_bezdna]->remove($filt2);
+            //$collect[collect_main] -> insert( $new_data );
+            $collect[collect_bezdna]->update($filt2, $new_data);
 
             echo '<p class="sussess">Пост одобрен</p>';
 

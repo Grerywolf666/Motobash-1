@@ -11,16 +11,19 @@ $n=(int)$_REQUEST[post_numb_in_base];
 $filt=array( "numb"=> $n);
 
 $post=$collect[collect_bezdna]-> findOne($filt);
-//$post_data_temp=$post[postdata];
+
+$post_data_temp=$post[postdata];
 $umail_temp=$post[postemail];
 $post_text_temp=$_REQUEST[post_text];
+$status=$post[status];
 $new_ar=array(
 
     postdate => "$post[postdate]",
-   // posttime => "$post_time_temp",
+    posttime => "$post_time_temp",
     postemail => "$umail_temp",
     posttext => "$post_text_temp",
     numb => $n,
+    status => $post[status],
 
 
 	);
@@ -32,11 +35,13 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 //var_dump($post);
 ?>
 <form  action="edit.php" method="POST">
+
 Номер поста <?php echo "$post[numb]"; ?><br>
 Мыло <?php echo "$post[postemail]"; ?><br>
 
                     
 Дата <?php echo "$post[postdate]"; ?><br>
+Статус поста <?php echo "$post[status]"; ?><br>
 
 <input name="post_numb_in_base" type="hidden" value="<?php echo $n; ?>"><br>
 <input name="post_text" type="textarea" size=100  value="<?php echo "$post[posttext]"; ?>"><br>
@@ -50,6 +55,10 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 <form  action="index.php" method="POST">
 <input name="cancel" type="submit" value="Отмена">
 </form>
+<?php
+if($post[status]=="new") 
+	{?>
+
 <br>одобрить!<br>
 <form  action="accept.php" method="POST">
 <input name="post_numb_in_base" type="hidden" value="<?php echo $n; ?>"><br>
@@ -59,14 +68,14 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 
 
 <?php
-
+}
 }
 else
 {
 $collect=mongodb_connect_bezdna();
 $n=(int)$_REQUEST[post_numb_in_base];
 $filt=array( "numb"=> $n);
-echo "<br><br>$_REQUEST[post_numb_in_base]<br><br>$n<br><br>";
+//echo "<br><br>$_REQUEST[post_numb_in_base]<br><br>$n<br><br>";
 
 $post=$collect[collect_bezdna]-> findOne($filt);
 //$edit_post=$post -> current();
@@ -78,6 +87,7 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 
                     
 Дата <?php echo "$post[postdate]"; ?><br>
+Статус поста <?php echo "$post[status]"; ?><br>
 <input name="post_numb_in_base" type="hidden" value="<?php echo $n; ?>"><br>
 <input name="post_text" type="textarea" size=100  value="<?php echo "$post[posttext]"; ?>"><br>
 
@@ -91,7 +101,10 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 <input name="cancel" type="submit" value="Отмена">
 </form>
 <?php //-------------------------======================================---------------------------------------
-//одобрение производится без редактирования!!!!! Если исправтиь и нажать одобрить - то в одобреное пойдет нередактированное ?>
+//одобрение производится без редактирования!!!!! Если исправтиь и нажать одобрить - то в одобреное пойдет нередактированное
+
+if($post[status]=="new") 
+	{?>
 
 <br>одобрить!<br>
 <form  action="accept.php" method="POST">
@@ -104,7 +117,7 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 
 
 
-<?php }
+<?php }}
  include("footer.php");
 
 ?>
