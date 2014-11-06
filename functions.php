@@ -142,14 +142,23 @@ function post_page_bezdna($page_numb=0, $collect, $status)   // печатает
 
 
 
-		  //массив который записывает соответствия между позицией поста на странице и номером поста в базе данных. 
-														//его и нужно передавать на форму удаления или одобрения чтобы функция знала к какому посту обращаться
+		 
 		$post_numb_on_page=$page_numb;
 		$like_db=$collect[like];
-		//-----------------------============================= открыть рейтинг постов видимым только для Одминов. Сделать когда доделаю куки
+		one_post($post_print, $page_numb, $like_db);
+		
+		if($post ->hasNext())   // печатаем пока можем
+			{$post -> next();}
+		else{break;}
+
+	}
+	
+}
+
+function one_post( $post_print, $page_numb, $like_db)  // функция которая рисует наш пост. выкинул сюда ибо надоело таскать кучу кода за собой
+{
+
 		?>
-
-
 		<!--start QUITE BLOCK-->
         <figure id="quote-<?php echo $post_print[numb]; ?>" class="quote">
             <figcaption class="actions">
@@ -177,7 +186,7 @@ function post_page_bezdna($page_numb=0, $collect, $status)   // печатает
                 </div>
             </figcaption>
             <article class="content" role="article">
-                <?php echo $post_print[posttext];?>
+                <?php echo nl2br($post_print[posttext]);?>
             </article>
             <div class="edit">
                 <form  action="edit.php" method="POST">
@@ -187,37 +196,10 @@ function post_page_bezdna($page_numb=0, $collect, $status)   // печатает
             </div>
         </figure>
 
-          		 
-
-            <?php
-
-
-
-
-
-
-            /*
-            //======================================ФУНКЦИИ ДОБАВЛЕНИЯ И УДАЛЕНИЯ================================================= 
-         
-
-            //====================================================================================================================
-            */?>
-
         <!--end QUOTE BLOCK-->
+        <?php
 
 
-
-
-
-
-<?php
-		//$i++;
-		if($post ->hasNext())   // печатаем пока можем
-			{$post -> next();}
-		else{break;}
-
-	}
-	
 }
 function page_count_number($page=0, $collect, $status)     // функция переключения страниц. меню переключения страниц в БЕЗДНЕ
 {

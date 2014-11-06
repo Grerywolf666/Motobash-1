@@ -1,5 +1,5 @@
 <?php include("header.php"); ?>
-
+<main role="main">
 <?php
 if( $_REQUEST[update]=='update' )
 {
@@ -34,6 +34,7 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 //$edit_post=$post -> current();
 //var_dump($post);
 ?>
+<br>Пост изменен<br><br>
 <form  action="edit.php" method="POST">
 
 Номер поста <?php echo "$post[numb]"; ?><br>
@@ -44,7 +45,8 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 Статус поста <?php echo "$post[status]"; ?><br>
 
 <input name="post_numb_in_base" type="hidden" value="<?php echo $n; ?>"><br>
-<input name="post_text" type="textarea" size=100  value="<?php echo "$post[posttext]"; ?>"><br>
+<textarea name="post_text" cols="50" rows="6" ><?php echo "$post[posttext]"; ?></textarea><br>
+
 
 
 <input name="update" type="submit" value="update">
@@ -54,6 +56,11 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 </form>
 <form  action="index.php" method="POST">
 <input name="cancel" type="submit" value="Отмена">
+</form>
+<form  action="delete.php" method="POST">
+<input name="post_numb_in_base" type="hidden" value="<?php echo $n; ?>"><br>
+
+<input name="delete" type="submit" value="delete">
 </form>
 <?php
 if($post[status]=="new") 
@@ -65,6 +72,7 @@ if($post[status]=="new")
 
 <input name="accept" type="submit" value="accept">
 </form>
+
 
 
 <?php
@@ -81,6 +89,7 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 //$edit_post=$post -> current();
 //var_dump($post);
 ?>
+<br><br><br>
 <form  action="edit.php" method="POST">
 Номер поста <?php echo "$post[numb]"; ?><br>
 Мыло <?php echo "$post[postemail]"; ?><br>
@@ -89,7 +98,7 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 Дата <?php echo "$post[postdate]"; ?><br>
 Статус поста <?php echo "$post[status]"; ?><br>
 <input name="post_numb_in_base" type="hidden" value="<?php echo $n; ?>"><br>
-<input name="post_text" type="textarea" size=100  value="<?php echo "$post[posttext]"; ?>"><br>
+<textarea name="post_text" cols="50" rows="6" ><?php echo "$post[posttext]"; ?></textarea><br>
 
 
 <input name="update" type="submit" value="update">
@@ -99,6 +108,11 @@ $post=$collect[collect_bezdna]-> findOne($filt);
 </form>
 <form  action="index.php" method="POST">
 <input name="cancel" type="submit" value="Отмена">
+</form>
+<form  action="delete.php" method="POST">
+<input name="post_numb_in_base" type="hidden" value="<?php echo $n; ?>"><br>
+
+<input name="delete" type="submit" value="delete">
 </form>
 <?php //-------------------------======================================---------------------------------------
 //одобрение производится без редактирования!!!!! Если исправтиь и нажать одобрить - то в одобреное пойдет нередактированное
@@ -116,7 +130,7 @@ if($post[status]=="new")
 
 
 
-
+</main>
 <?php }}
  include("footer.php");
 
