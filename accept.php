@@ -32,6 +32,7 @@
                 numb_new => $tt,
                 numb => $n,
                 status=> "accepted",
+                like =>$post[like],
             );
 
             //$collect[collect_main] -> insert( $new_data );

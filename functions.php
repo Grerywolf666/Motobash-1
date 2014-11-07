@@ -124,6 +124,33 @@ function postn_bezdna ($page, $collect, $status) // функция котора�
 	$post -> rewind();
 	return($post);
 }	
+function postn_bezdna_top ($page, $collect, $status) // функция которая достает нужное количество постов из БД для бездны
+
+{
+	//$Connection = new Mongo("mongodb://localhost:27017");
+	//$db = $Connection -> motobashdb;
+
+	
+	$all_post_count = $collect -> count();    // находим количество постов. позже переписать на ГЛОБАЛ
+	$all_page_numb = intval ($all_post_count/50);
+	$j=$all_post_count%50;
+	//echo "$j <br>";
+	if ($j) 
+	{
+		$all_page_numb++;
+	}
+	if($page!=0)
+	{
+	$k=($all_page_numb-$page)*50;
+	}
+
+	$post = $collect -> find(array(status =>$status  )); 
+	$post -> sort(array("like" => -1 ));
+	$post -> skip($k);
+	$post -> limit(50);   // тут указываешь сколько постов будет на странице
+	$post -> rewind();
+	return($post);
+}	
 
 	
 
@@ -132,8 +159,6 @@ function post_page_bezdna($page_numb=0, $collect, $status)   // печатает
 	$post_all=$collect[collect_bezdna]; 
 	$post=postn_bezdna($page_numb, $collect[collect_bezdna], $status); // достаем из базы требуемое нам количество постов, и курсор с данной выборкой запихиваем $post
 
-	$post_numb_on_this_page[0]=0;
-	$i=0;
 	while($post){
 		
 		$post_print=$post -> current();
@@ -170,7 +195,7 @@ function one_post( $post_print, $page_numb, $like_db)  // функция кот�
                             <input name="submit" type="submit" value="+">
                         </form>
                     </div>
-                    <span class="value"><?php echo show_like($post_print[numb],$like_db) ;?> </span>
+                    <span class="value"><?php echo $post_print[like]; ?> </span>
                     <div class="downgrade">
                         <form  action="up_down_likes.php" method="POST">
                             <input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>">
@@ -420,42 +445,54 @@ function page_count_number($page=0, $collect, $status)     // функция п�
 
 
 
-
-function show_like($post_number, $likes_db)		// просто узнает на сколько говняный ваш пост
-{
-	$filt=array(post_numb=> $post_number,);
-	$post=$likes_db-> findOne($filt);
-	if($post)
-		return($post[like]);
-	else
-		{return(0);}
-}
-function up_like($post_number, $likes_db, $updown)  //функция лайков. Если третий аргумент TRUE то тогда апаем, если FALSE то видать пост говно
+function up_like($post_number, $collect, $updown)  //функция лайков. Если третий аргумент TRUE то тогда апаем, если FALSE то видать пост говно
 {	
 	$post_n=(int) $post_number;
-	$filt=array(post_numb=> $post_n,);
-	$post=$likes_db-> findOne($filt);
+	$filt=array(numb=> $post_n,);
+	$post=$collect-> findOne($filt);
 	if($post)
 		{
+			if($post[like]){
 			$n=$post[like];
 			if($updown==TRUE)
 			{
+				
 				$nn=$n+1;
 			}
 			elseif ($updown==FALSE) {
 				$nn=$n-1;
 			}
+			if($post[numb_new])
+			{
 
-			$new_like=array( post_numb=> $post_n,
-				like=>$nn, );
-			$filt=array( post_numb=> $post_n,
+			$new_like=array( postdate => $post[postdate],   						
+   							postemail => $post[postemail],
+  							posttext => $post[posttext],
+							numb=> $post_n,
+							numb_new=> $post[numb_new],
+							status =>$post[status],
+							like=>$nn,);
+			}
+			else
+			{
+
+			$new_like=array( postdate => $post[postdate],   						
+   							postemail => $post[postemail],
+  							posttext => $post[posttext],
+							numb=> $post_n,
+							status =>$post[status],
+							like=>$nn,);
+			}
+
+
+
+			$filt=array( numb=> $post_n,
 				like=>$n,);
-			$likes_db->update($filt,$new_like);
-
-
-		}
-	else
+			$collect->update($filt,$new_like);
+			}
+				else
 		{
+			
 
 			if($updown==TRUE)
 			{
@@ -465,12 +502,36 @@ function up_like($post_number, $likes_db, $updown)  //функция лайко�
 				$nn=-1;
 			}
 
-			$new_like=array( post_numb=> $post_n,
-				like=>$nn, );
-			$likes_db->insert($new_like);
+			if($post[numb_new])
+			{
+
+			$new_like=array( postdate => $post[postdate],   						
+   							postemail => $post[postemail],
+  							posttext => $post[posttext],
+							numb=> $post_n,
+							numb_new=> $post[numb_new],
+							status =>$post[status],
+							like=>$nn,);
+			}
+			else
+			{
+
+			$new_like=array( postdate => $post[postdate],   						
+   							postemail => $post[postemail],
+  							posttext => $post[posttext],
+							numb=> $post_n,
+							status =>$post[status],
+							like=>$nn,);
+			}
+
+			$filt=array( numb=> $post_n,);
+			$collect->update($filt,$new_like);
+	/**/
+
+			}
+
+
 		}
-
+	
 }
-
-
 ?>

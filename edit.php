@@ -16,17 +16,31 @@ $post_data_temp=$post[postdata];
 $umail_temp=$post[postemail];
 $post_text_temp=$_REQUEST[post_text];
 $status=$post[status];
+if($post[numb_new])
+{
 $new_ar=array(
-
-    postdate => "$post[postdate]",
-    posttime => "$post_time_temp",
+	postdate => "$post[postdate]",
     postemail => "$umail_temp",
     posttext => "$post_text_temp",
     numb => $n,
-    status => $post[status],
-
+    numb_new=> $post[numb_new],
+    status =>$post[status],
+    like => $post[like],
 
 	);
+}
+else{
+$new_ar=array(
+	postdate => "$post[postdate]",
+    postemail => "$umail_temp",
+    posttext => "$post_text_temp",
+    numb => $n,
+
+    status =>$post[status],
+    like => $post[like],
+
+	);
+}
 
 $collect[collect_bezdna]->update($filt, $new_ar);
 $post=$collect[collect_bezdna]-> findOne($filt);

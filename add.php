@@ -35,14 +35,14 @@ else
 	$new_post_numb=1;
 
 }
+$like=0;
 $data = array(
-	//id
     postdate => "$post_data_temp",
-   // posttime => "$post_time_temp",
     postemail => "$umail_temp",
     posttext => "$post_text_temp",
     numb => $new_post_numb,
     status =>"new",
+    like => $like,
 
 
 );
