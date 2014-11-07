@@ -534,4 +534,255 @@ function up_like($post_number, $collect, $updown)  //функция лайков
 		}
 	
 }
+function best_post_today ($collect)
+{
+		$post_data_temp = date('d-m-Y');
+        $filt=array(
+        			postdate=>new MongoRegex ( "/{$post_data_temp}/i" ),
+        			status=> "accepted");
+        $post=$collect[collect_bezdna]->find($filt);                // создаем запрос для поиска
+   		$post -> sort(array("like" => -1 ));
+   		$post -> limit(25);                     // пока введу ограничение на поиск только из 50 пследних постов
+   		$post-> rewind();
+                
+
+
+    while($post){
+        $flagff=TRUE;
+        $post_print=$post -> current();
+        $like_db=$collect[like];
+       one_post($post_print, $page_numb, $like_db);
+        if($post ->hasNext())
+            {$post -> next();
+                $flagff=TRUE;}
+        else{break;}
+				}
+
+}
+function best_post_month ($collect)
+{
+		$post_data_temp = date('m-Y');
+        $filt=array(
+        			postdate=>new MongoRegex ( "/{$post_data_temp}/i" ),
+        			status=> "accepted");
+        $post=$collect[collect_bezdna]->find($filt);                // создаем запрос для поиска
+   		$post -> sort(array("like" => -1 ));
+   		$post -> limit(25);                     // пока введу ограничение на поиск только из 50 пследних постов
+   		$post-> rewind();
+                
+
+
+    while($post){
+
+        $flagff=TRUE;
+        $post_print=$post -> current();
+        $like_db=$collect[like];
+       one_post($post_print, $page_numb, $like_db);
+        if($post ->hasNext())
+            {$post -> next();
+                $flagff=TRUE;}
+        else{break;}
+				}
+
+}
+function best_post_year ($collect, $year)
+{
+		$post_data_temp = $year;
+        $filt=array(
+        			postdate=>new MongoRegex ( "/{$post_data_temp}/i" ),
+        			status=> "accepted");
+        $post=$collect[collect_bezdna]->find($filt);                // создаем запрос для поиска
+   		$post -> sort(array("like" => -1 ));
+   		$post -> limit(25);                     // пока введу ограничение на поиск только из 50 пследних постов
+   		$post-> rewind();
+                
+
+
+    while($post){
+        $flagff=TRUE;
+        $post_print=$post -> current();
+        $like_db=$collect[like];
+       one_post($post_print, $page_numb, $like_db);
+        if($post ->hasNext())
+            {$post -> next();
+                $flagff=TRUE;}
+        else{break;}
+				}
+
+}
+
+function menu_top($collect, $page=0)
+{
+	?>
+	<nav class="pagination" role="navigation">
+            <ul>
+
+
+	<?php
+	$addr_1="/best.php?page_top=";
+	$addr_2="month";
+	$addr_3=$addr_1.$addr_2;
+	if (!$page)
+	{
+		?>
+                <li><span class="this-page">Сегодня</span></li>
+                <li><a href="<?php echo $addr_3; ?>" rel="next">За месяц</a></li>
+
+
+
+                <?php 
+                $this_year = date('Y');
+                $n=2100;
+                do
+                {
+                	
+                	$postyear=$collect[collect_bezdna]->findOne(array(postdate=>new MongoRegex ( "/{$n}/i" ),
+        			status=> "accepted"));
+					if($postyear)
+					{
+						$addr_3=$addr_1.$n;
+
+						?>
+						<li><a href="<?php echo $addr_3;?>"><?php echo $n;?></a></li>
+						<?
+					}
+					$n--;
+					
+
+                }while($n!=2010);              
+
+	}
+
+	elseif($page=="month")
+
+	{
+		?>		
+				<li><a href="/best.php">Сегодня</a></li>
+                <li><span class="this-page">За месяц</span></li>
+
+
+
+
+                <?php 
+                $this_year = date('Y');
+                $n=2100;
+                do
+                {
+                	$postyear=$collect[collect_bezdna]->findOne(array(postdate=>new MongoRegex ( "/{$n}/i" ),
+        			status=> "accepted"));
+					if($postyear)
+					{
+						$addr_3=$addr_1.$n;
+						?>
+						<li><a href="<?php echo $addr_3;?>"><?php echo $n;?></a></li>
+						<?
+					}
+					$n--;
+					
+
+                }while($n!=2010);
+
+
+
+   	}
+	else
+	{
+		$this_year = date('Y');
+		?>		
+				<li><a href="/best.php">Сегодня</a></li>
+				<li><a href="/best.php?page_top=month">За месяц</a></li>
+                <?php 
+		if($this_year>$page)
+		{
+
+                $n=2100;
+                do
+                {
+                	$postyear=$collect[collect_bezdna]->findOne(array(postdate=>new MongoRegex ( "/{$n}/i" ),
+        			status=> "accepted"));
+					if($postyear)
+					{
+						$addr_3=$addr_1.$n;
+						?>
+						<li><a href="<?php echo $addr_3;?>"><?php echo $n;?></a></li>
+						<?
+					}
+					$n--;
+					
+
+                }while($n==$this_year);
+
+		}
+				?>		
+                <li><span class="this-page"><?php echo $page; ?></span></li>
+    
+                <?php 
+                $this_year = date('Y');
+                $n=$page;
+                $n--;
+                do
+                {
+                	$postyear=$collect[collect_bezdna]->findOne(array(postdate=>new MongoRegex ( "/{$n}/i" ),
+        			status=> "accepted"));
+					if($postyear)
+					{
+						$addr_3=$addr_1.$n;
+						?>
+						<li><a href="<?php echo $addr_3;?>"><?php echo $n;?></a></li>
+						<?
+					}
+					$n--;
+					
+
+                }while($n!=2010);
+
+	}
+	  ?>
+            </ul>
+        </nav>
+
+
+	<?php
+}
+
+
+
+ function what_page_on_top($collect, $pagen, $status)  // функция втыкает на какой мы странице
+{
+
+
+		$collect = $collect -> find(array(status =>$status  )); 
+		$all_post_count = $collect -> count();
+		//echo "количесво всех постов $all_post_count <br>";
+		$all_page_numb = intval ($all_post_count/50);
+		//echo "количесво $all_post_count <br>";
+		$j=$all_post_count%50;
+		//echo "две переменные $all_page_numb <br> $j<br>";
+	//echo "$j <br>";
+	if ($j) 
+	{
+		$all_page_numb++;
+	}
+	if ($pagen)
+	{
+		if($all_page_numb<$pagen)
+			{return ('PageError!');}
+		else
+		{
+		return ($pagen);
+		}
+		//$_REQUEST['pagen']==3;
+		//echo $_REQUEST['pagen'];
+
+	}
+	else 
+	{
+		//echo "вывод $all_post_count<br>";
+	
+	return ($all_page_numb);
+
+	}
+
+}
+
 ?>
