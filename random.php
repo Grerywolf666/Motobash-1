@@ -1,4 +1,4 @@
-<?php include("header.php");
+﻿<?php include("header.php");
 $collect=mongodb_connect_bezdna (); 
 $post_numb=$collect[collect_count] -> findOne();
 
@@ -23,7 +23,7 @@ if($post)
 {
         $post_print=$post;
         $like_db=$collect[like];
-        one_post($post_print, $page_numb, $like_db);
+        one_post($post_print, $page_numb, $like_db, $show_admin);
 }
 else
 {

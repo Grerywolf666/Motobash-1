@@ -1,6 +1,8 @@
-<?php include("header.php"); ?>
+﻿<?php include("header.php"); ?>
 <main>
     <?php
+    if($show_admin){
+
         $collect = mongodb_connect_bezdna();
         $n = (int)$_REQUEST[post_numb_in_base];
         $filt = array( "numb"=> $n);
@@ -43,6 +45,9 @@
         } else {
             echo '<p class="error">Нежданчик! Бывает</p>';
         }
+    }
+    else
+        echo "<br><br>Ошибка доступа<br><br>";
     ?>
 </main>
 <?php include("footer.php"); ?>

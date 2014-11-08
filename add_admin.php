@@ -3,7 +3,7 @@
 
 
 ///if(isset($_POST['submit']))
-if($_POST[login]=="admin") {
+if($_POST[login]=="motoadmin") {
 	$Connection = new Mongo("mongodb://localhost:27017");
 	$db = $Connection -> motobashdb-> security;
 	//$collect -> security;

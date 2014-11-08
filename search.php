@@ -1,4 +1,4 @@
-<?php include("header.php");
+﻿<?php include("header.php");
 $collect=mongodb_connect_bezdna ();
 
 ?>
@@ -22,7 +22,7 @@ $collect=mongodb_connect_bezdna ();
          $flagff=TRUE;
          $post_print=$post;
          $like_db=$collect[like];
-        one_post($post_print, $page_numb, $like_db);
+        one_post($post_print, $page_numb, $like_db, $show_admin);
     }
 
 
@@ -48,7 +48,7 @@ $collect=mongodb_connect_bezdna ();
         $flagff=TRUE;
         $post_print=$post -> current();
         $like_db=$collect[like];
-       one_post($post_print, $page_numb, $like_db);
+       one_post($post_print, $page_numb, $like_db, $show_admin);
         if($post ->hasNext())
             {$post -> next();
                 $flagff=TRUE;}

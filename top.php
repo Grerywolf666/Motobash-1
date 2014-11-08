@@ -1,4 +1,4 @@
-<?php include("header.php");
+﻿<?php include("header.php");
 $collect=mongodb_connect_bezdna ();
 //$collect_main=mongodb_connect_main ();
 $pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen'],"accepted");?>
@@ -35,7 +35,7 @@ $pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen'],"accepted")
          
         $post_numb_on_page=$pagen;
         $like_db=$collect[like];
-        one_post($post_print, $pagen, $like_db);
+        one_post($post_print, $pagen, $like_db, $show_admin);
         
         if($post ->hasNext())   // печатаем пока можем
             {$post -> next();}

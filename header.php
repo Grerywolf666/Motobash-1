@@ -1,4 +1,35 @@
-﻿<!doctype html>
+<?php 
+$Connection = new Mongo("mongodb://localhost:27017");
+    if(isset($_COOKIE['id']) and isset($_COOKIE['hash']))
+    {
+        
+        $db = $Connection -> motobashdb ->security;
+        $filt=array(hash=> $_COOKIE['hash']);
+        $access=$db->findOne($filt);
+        if(($access[_id]!=$_COOKIE['id']) or ($access[hash]!=$_COOKIE['hash']))
+        {
+            header("Location: exit_admin.php?exit_admin=true"); exit();
+            
+        }
+        else
+        {
+
+            
+            echo "Режим Админа";
+            ?>
+            <form  action="/exit_admin.php" method="POST">
+            <input name="exit_admin" type="submit" value="Exit">
+
+            </form>
+            <?php 
+            $show_admin=true;
+
+
+        }
+
+        } 
+    ?>
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">

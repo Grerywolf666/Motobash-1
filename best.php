@@ -1,4 +1,4 @@
-<?php include("header.php");
+﻿<?php include("header.php");
 $collect=mongodb_connect_bezdna ();
 //$collect_main=mongodb_connect_main ();
 //$pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen'],"accepted");?>
@@ -22,16 +22,16 @@ $collect=mongodb_connect_bezdna ();
         if(!$_REQUEST[page_top])
         {
         
-         best_post_today($collect); 
+         best_post_today($collect, $show_admin); 
          }
          if($_REQUEST[page_top]=='month')
          {
-            best_post_month($collect);
+            best_post_month($collect, $show_admin);
 
          }
-         else
+         elseif (($_REQUEST[page_top]!='month') and ($_REQUEST[page_top]))
          {
-            best_post_year($collect, $_REQUEST[page_top]);
+            best_post_year($collect, $_REQUEST[page_top], $show_admin);
 
          }
 

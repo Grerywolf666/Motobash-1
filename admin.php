@@ -1,6 +1,4 @@
-<?php
-
-
+<?php 
 
 if(isset($_POST['submit'])){
 	$Connection = new Mongo("mongodb://localhost:27017");
@@ -21,8 +19,6 @@ if(isset($_POST['submit'])){
 						$new_user=array(login => "$_POST[login]",);
 
 
-
-	//--------------------------------------------------------------------------
 					function generateCode($length=6) 
 					{
 

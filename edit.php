@@ -1,6 +1,11 @@
-<?php include("header.php"); ?>
+﻿<?php include("header.php"); ?>
 <main role="main">
 <?php
+
+
+if($show_admin){
+
+
 if( $_REQUEST[update]=='update' )
 {
 
@@ -145,7 +150,9 @@ if($post[status]=="new")
 
 
 </main>
-<?php }}
+<?php }} }
+else
+echo "<br><br>Ошибка доступа<br><br>";
  include("footer.php");
 
 ?>

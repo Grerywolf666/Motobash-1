@@ -17,7 +17,7 @@ $pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen'],"accepted")
 
 
         <!--start QUITE BLOCK-->
-        <?php   $i=0; post_page_bezdna($pagen, $collect, "accepted");; ?>
+        <?php   $i=0; post_page_bezdna($pagen, $collect, "accepted", $show_admin);; ?>
         <!--end QUOTE BLOCK-->
 
         <!--start PAGINATION BLOCK-->
@@ -26,7 +26,7 @@ $pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen'],"accepted")
 <?php }
     else
     {
-        echo "Страница не существует";
+        echo "<br><br>Здесь еще нет постов. Добавьте еще =)<br>";
 
     }
 

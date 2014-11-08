@@ -154,7 +154,7 @@ function postn_bezdna_top ($page, $collect, $status) // функция кото�
 
 	
 
-function post_page_bezdna($page_numb=0, $collect, $status)   // печатает посты бездны
+function post_page_bezdna($page_numb=0, $collect, $status, $show_admin=0)   // печатает посты бездны
 {	
 	$post_all=$collect[collect_bezdna]; 
 	$post=postn_bezdna($page_numb, $collect[collect_bezdna], $status); // достаем из базы требуемое нам количество постов, и курсор с данной выборкой запихиваем $post
@@ -170,7 +170,7 @@ function post_page_bezdna($page_numb=0, $collect, $status)   // печатает
 		 
 		$post_numb_on_page=$page_numb;
 		$like_db=$collect[like];
-		one_post($post_print, $page_numb, $like_db);
+		one_post($post_print, $page_numb, $like_db, $show_admin);
 		
 		if($post ->hasNext())   // печатаем пока можем
 			{$post -> next();}
@@ -180,7 +180,7 @@ function post_page_bezdna($page_numb=0, $collect, $status)   // печатает
 	
 }
 
-function one_post( $post_print, $page_numb, $like_db)  // функция которая рисует наш пост. выкинул сюда ибо надоело таскать кучу кода за собой
+function one_post( $post_print, $page_numb, $like_db, $show_admin=0)  // функция которая рисует наш пост. выкинул сюда ибо надоело таскать кучу кода за собой
 {
 
 		?>
@@ -189,19 +189,26 @@ function one_post( $post_print, $page_numb, $like_db)  // функция кот�
             <figcaption class="actions">
                 <div class="id">#<?php echo $post_print[numb]; ?></div>
                 <div class="rating">
+                <?php //echo $_COOKIE[$post_print[numb]];
+                if(like_accept($_COOKIE[$post_print[numb]], $post_print))
+                { ?>
                     <div class="grade">
                         <form  action="up_down_likes.php" method="POST">
                             <input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>">
                             <input name="submit" type="submit" value="+">
                         </form>
                     </div>
+                   <?php } ?>
                     <span class="value"><?php echo $post_print[like]; ?> </span>
+                    <?php if(like_accept($_COOKIE[$post_print[numb]], $post_print))
+                { ?>
                     <div class="downgrade">
                         <form  action="up_down_likes.php" method="POST">
                             <input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>">
                             <input name="submit" type="submit" value="-">
                         </form>
                     </div>
+                    	<?php } ?>
                 </div>
                 <div class="share" id="s1">Поделиться</div>
                 <div class="pubdate">
@@ -212,13 +219,15 @@ function one_post( $post_print, $page_numb, $like_db)  // функция кот�
             </figcaption>
             <article class="content" role="article">
                 <?php echo nl2br($post_print[posttext]);?>
-            </article>
+            </article> <?php if ($show_admin)
+            { ?>
             <div class="edit">
                 <form  action="edit.php" method="POST">
                     <input name="post_numb_in_base" type="hidden" value="<?php echo $post_print[numb];?>">
                     <input name="Edit" type="submit" value="Edit">
                 </form>
             </div>
+            <?php }?>
         </figure>
 
         <!--end QUOTE BLOCK-->
@@ -403,8 +412,6 @@ function page_count_number($page=0, $collect, $status)     // функция п�
 
 
 ?>
-
-
 <?php function Whatpagenumber($collect, $pagen, $status)  // функция втыкает на какой мы странице
 {
 
@@ -534,7 +541,7 @@ function up_like($post_number, $collect, $updown)  //функция лайков
 		}
 	
 }
-function best_post_today ($collect)
+function best_post_today ($collect, $show_admin)
 {
 		$post_data_temp = date('d-m-Y');
         $filt=array(
@@ -548,18 +555,20 @@ function best_post_today ($collect)
 
 
     while($post){
-        $flagff=TRUE;
         $post_print=$post -> current();
         $like_db=$collect[like];
-       one_post($post_print, $page_numb, $like_db);
+       one_post($post_print, $page_numb, $like_db, $show_admin);
+
         if($post ->hasNext())
             {$post -> next();
-                $flagff=TRUE;}
+
+              }
         else{break;}
+
 				}
 
 }
-function best_post_month ($collect)
+function best_post_month ($collect, $show_admin)
 {
 		$post_data_temp = date('m-Y');
         $filt=array(
@@ -577,7 +586,8 @@ function best_post_month ($collect)
         $flagff=TRUE;
         $post_print=$post -> current();
         $like_db=$collect[like];
-       one_post($post_print, $page_numb, $like_db);
+       one_post($post_print, $page_numb, $like_db, $show_admin);
+
         if($post ->hasNext())
             {$post -> next();
                 $flagff=TRUE;}
@@ -585,7 +595,7 @@ function best_post_month ($collect)
 				}
 
 }
-function best_post_year ($collect, $year)
+function best_post_year ($collect, $year, $show_admin)
 {
 		$post_data_temp = $year;
         $filt=array(
@@ -602,7 +612,8 @@ function best_post_year ($collect, $year)
         $flagff=TRUE;
         $post_print=$post -> current();
         $like_db=$collect[like];
-       one_post($post_print, $page_numb, $like_db);
+       one_post($post_print, $page_numb, $like_db, $show_admin);
+
         if($post ->hasNext())
             {$post -> next();
                 $flagff=TRUE;}
@@ -785,4 +796,13 @@ function menu_top($collect, $page=0)
 
 }
 
+function like_accept($coockie, $post)
+{
+    if($post[numb]==$coockie)
+    {
+        return(FALSE);
+    }
+    else
+        return(TRUE);
+}
 ?>

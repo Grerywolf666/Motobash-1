@@ -23,7 +23,7 @@ $status="new";
 
 
         <!--start QUITE BLOCK-->
-        <?php	$i=0; post_page_bezdna($pagen, $collect, "new"); ?>
+        <?php	$i=0; post_page_bezdna($pagen, $collect, "new", $show_admin); ?>
         <!--end QUOTE BLOCK-->
 
         <!--start PAGINATION BLOCK-->
@@ -32,7 +32,7 @@ $status="new";
 <?php }
 	else
 	{
-		echo "Страница не существует";
+		echo "<br><br>Здесь еще нет постов. Добавьте еще =)<br>";
 
 	}
 
