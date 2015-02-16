@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿
     <nav class="bottom">
         <div class="wrapper">
@@ -32,17 +31,5 @@
         </div>
     </footer>
     <script src="scripts/script.js"></script>
-=======
-﻿<!--start FOOTER BLOCK-->
-    <footer role="contentinfo">
-        <p class="copyright">Идея проекта &copy; bash.org</p>
-        <p>Реализация и плюшки &copy; 2013, команда motobash.ru.</p>
-        <p>Использование сайта подразумевает согласие с <a class="eula" href="#">пользовательским соглашением</a>.<strong>18+</strong></p>
-        <p><a class="for-advertiser" href="#">Информация для рекламодателей</a>. По другим вопросам <a href="#">support@motobash.ru</a>.</p>
-    </footer>
-    <!--end FOOTER BLOCK-->
-
-</div>
->>>>>>> 7698273afb9633d496e1692eb16b51456ba8df9f
 </body>
 </html>
