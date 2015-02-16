@@ -1,0 +1,323 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  font-family: Arial, sans-serif;
+}
+body {
+  background: url('../img/bg.jpg') 0 0 repeat transparent;
+}
+.icon {
+  background: url('../img/sprite.png') 0 0 no-repeat;
+}
+.icon.vk {
+  width: 28px;
+  height: 17px;
+}
+.icon.vk:hover {
+  background-position: 0 -17px;
+}
+.icon.tw {
+  width: 20px;
+  height: 17px;
+  background-position: -28px 0;
+}
+.icon.tw:hover {
+  background-position: -28px -17px;
+}
+.icon.ig {
+  width: 17px;
+  height: 17px;
+  background-position: -65px 0;
+}
+.icon.ig:hover {
+  background-position: -65px -17px;
+}
+.icon.rss {
+  width: 17px;
+  height: 17px;
+  background-position: -48px 0;
+}
+.icon.rss:hover {
+  background-position: -48px -17px;
+}
+.icon.search {
+  width: 20px;
+  height: 20px;
+  background-position: -82px 0;
+}
+.icon.search:hover {
+  background-position: -82px -20px;
+}
+.header {
+  width: 100%;
+  border-top: 10px solid #000000;
+  background: url('../img/header-bg.jpg') 0 0 repeat transparent;
+}
+.header .wrapper {
+  position: relative;
+  width: 850px;
+  margin: 0 auto;
+  padding: 30px 8px 28px;
+}
+.header .logo {
+  width: 37.53%;
+  font-size: 0.86em;
+  line-height: 1.23em;
+}
+.header .logo .slogan {
+  padding-top: 1px;
+  text-transform: lowercase;
+  text-align: right;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.header .socials {
+  width: 153px;
+  position: absolute;
+  top: 13px;
+  right: 16px;
+  font-size: 0;
+  line-height: 0;
+}
+.header .socials .social {
+  display: inline-block;
+  height: 17px;
+  text-indent: 200%;
+  overflow: hidden;
+  font-size: 1em;
+  line-height: 1em;
+  margin-left: 17px;
+}
+.header .search-input {
+  position: absolute;
+  bottom: 28px;
+  right: 8px;
+}
+.header .search-input .search {
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+  text-indent: 200%;
+  padding: 0;
+  margin: 0;
+}
+.header .search-input .text {
+  display: inline-block;
+  width: 150px;
+  font-size: 1em;
+  height: 19px;
+  font-style: normal;
+  line-height: 19px;
+  border: 0;
+  border-bottom: 1px solid #000;
+  outline: 0;
+  background: transparent;
+  transition: width 0.25s;
+}
+.header .search-input .text.empty {
+  font-style: italic;
+}
+.header .search-input .text:focus {
+  border-bottom-color: #e93916;
+  width: 300px;
+  background: rgba(255, 255, 255, 0.75);
+}
+nav {
+  background: #000;
+  height: 30px;
+  line-height: 30px;
+  position: relative;
+  margin-bottom: 10px;
+}
+nav.bottom {
+  width: 100%;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+nav.bottom:after {
+  bottom: auto;
+  top: -10px;
+  transform: rotate(180deg);
+}
+nav.bottom .menu:after {
+  bottom: auto;
+  top: -4px;
+}
+nav:after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: -webkit-linear-gradient(270deg, #000000 0%, rgba(0, 0, 0, 0.5) 35%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0.46;
+  z-index: 0;
+}
+nav .wrapper {
+  width: 850px;
+  height: 34px;
+  margin: 0 auto;
+  text-align: justify;
+  text-justify: inter-word;
+  text-align-last: justify;
+}
+nav .wrapper:after {
+  content: ' ';
+  display: inline-block;
+  width: 100%;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  visibility: hidden;
+  opacity: 0;
+}
+nav .menu {
+  color: #fff;
+  padding: 0 7px;
+  text-decoration: none;
+  font-size: 1em;
+  display: inline-block;
+  position: relative;
+  z-index: 3;
+}
+nav .menu:after {
+  content: ' ';
+  display: block;
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  right: 50%;
+  height: 4px;
+  background: #a4a4a4;
+  transition: left 0.25s, right 0.25s;
+}
+nav .menu.active:after,
+nav .menu:hover:after {
+  left: 0;
+  right: 0;
+}
+nav .menu.active:after {
+  background: #e93916;
+}
+nav .menu .count {
+  display: none;
+  position: absolute;
+  background: #e93916;
+  padding: 2px 3px;
+  border-top: 1px solid rgba(233, 57, 22, 0.85);
+  border-bottom: 1px solid rgba(233, 57, 22, 0.5);
+  font-size: 0.78em;
+  line-height: 1;
+  right: 0;
+  top: -1.2em;
+}
+nav .menu .count:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  right: 2px;
+  bottom: -6px;
+  border: 3px solid #e93916;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+nav .menu.new .count {
+  display: block;
+}
+main {
+  width: 850px;
+  margin: 0 auto 35px;
+}
+main .post {
+  margin-top: 35px;
+}
+main .post header {
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  background: #808080;
+  border-radius: 3px 3px 0 0;
+  border-bottom: 1px solid #b7b7b7;
+  height: 20px;
+  padding: 0 12px;
+  line-height: 0;
+  font-size: 0;
+  position: relative;
+}
+main .post .item {
+  font-size: 12px;
+  line-height: 20px;
+  display: inline-block;
+  color: #ffffff;
+  text-decoration: none;
+}
+main .post .id {
+  width: 60px;
+}
+main .post .id:before {
+  content: '#';
+  display: inline;
+  padding-right: 2px;
+}
+main .post time {
+  width: 110px;
+  margin-left: 115px;
+}
+main .post .share {
+  width: 90px;
+  margin-left: 295px;
+}
+main .post .rate {
+  width: 85px;
+  position: absolute;
+  font-size: 0;
+  right: 12px;
+}
+main .post .rate .cool,
+main .post .rate .crap {
+  width: 15px;
+  line-height: 15px;
+  margin: 2px 0 1px;
+  text-align: center;
+  transition: background 0.25s;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+main .post .rate .cool:hover,
+main .post .rate .crap:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+main .post .rate .rating {
+  width: 55px;
+  text-align: center;
+}
+main .post article {
+  border: 1px dotted #808080;
+  border-top: 0;
+  background: #fff;
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+  font-size: 0.87em;
+  padding: 7px 12px;
+}
+.footer {
+  width: 100%;
+  height: 105px;
+  font-size: 0.75em;
+}
+.footer .wrapper {
+  width: 850px;
+  margin: 0 auto;
+}
+.footer .information {
+  display: table-cell;
+  vertical-align: middle;
+  height: 105px;
+}

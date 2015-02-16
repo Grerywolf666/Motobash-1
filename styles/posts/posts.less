@@ -1,0 +1,59 @@
+.quote {
+    margin-bottom: 1em;
+    overflow: hidden;
+
+    article {
+        padding: 0.5em;
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px dotted #333;
+    }
+
+    .share {
+        display: inline-block;
+        margin-left: 7em;
+    }
+
+    .pubdate {
+        display: inline-block;
+        margin-left: 10em;
+    }
+
+    .rating {
+        display: inline-block;
+
+        .grade,
+        .downgrade {
+            display: inline-block;
+
+            form {
+                display: inline-block;
+
+                [type="submit"] {
+                    display: inline-block;
+                    border: 0;
+                    background: transparent;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: red;
+                        background: rgba(255, 255, 255, 0.7);
+                    }
+                }
+            }
+        }
+
+        .value {
+            display: inline-block;
+            width: 50px;
+            text-align: center;
+        }
+    }
+
+    .edit {
+        float: right;
+    }
+
+    .id {
+        float: right;
+    }
+}

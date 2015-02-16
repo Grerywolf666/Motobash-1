@@ -1,0 +1,45 @@
+.header{
+    margin-top:10px;
+    position:relative;
+    h1{
+        font-weight:600;
+        margin:0;
+        .one-line-middle(@headline-fontsize*1.5, @headline-fontsize);
+        color:@headline-color;
+        &:before{
+            content:url("../images/mv-logo.png");
+            margin-right:10px;
+            display:inline-block;
+        }
+    }
+    .search-form {
+        float: right;
+
+    }
+    .our-feed{
+        width:165px;
+        height:50px;
+        overflow: hidden;
+        position:absolute;
+        top:0;
+        right:0;
+        a{
+            display:block;
+            width:50px;
+            height:50px;
+            .hide.text();
+            background-color:#fff;
+            float: right;
+            margin-left:5px;
+            .instagramm{
+                //TODO: insert instagramm style
+            }
+            .vk{
+                //TODO: insert vk style
+            }
+            .rss{
+                //TODO: insert rss style
+            }
+        }
+    }
+}

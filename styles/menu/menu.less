@@ -1,0 +1,39 @@
+.main-menu{
+    margin-top: 1em;
+
+    ul{
+        list-style:none;
+        display:block;
+        text-align:center;
+
+        li{
+            display:inline-block;
+            background-image:url(@menu-bg);
+            margin-left:20px;
+
+            &:first-child {
+                margin-left:0;
+            }
+
+            a{
+                display:block;
+                color:@menu-text-color;
+                text-decoration:none;
+                overflow:hidden;
+                border-bottom:1px solid transparent;
+                .one-line-middle(@menu-item-height, 16px);
+                width:@menu-item-width;
+                .transition();
+
+                &:hover {
+                    border-bottom-color:@menu-hover-text-color;
+                    .transform.scale(1.1, 1.2);
+                }
+
+            }
+
+        }
+
+    }
+
+}

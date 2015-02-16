@@ -1,0 +1,16 @@
+.transition(@property:all, @duration: @default-duration, @timing-func: ease, @delay: @default-delay) {
+    -webkit-transition:@property @duration @timing-func @delay;
+    -moz-transition:@property @duration @timing-func @delay;
+    -ms-transition:@property @duration @timing-func @delay;
+    -o-transition:@property @duration @timing-func @delay;
+    transition:@property @duration @timing-func @delay;
+
+    .multy(@values,...) {
+        -webkit-transition:@arguments;
+        -moz-transition:@arguments;
+        -ms-transition:@arguments;
+        -o-transition:@arguments;
+        transition:@arguments;
+    }
+
+}
