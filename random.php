@@ -16,7 +16,6 @@ do{
 
 ?>
 
-<main role="main">
 <?php
 
 if($post)
@@ -31,7 +30,6 @@ else
 }
 
 ?>
-    </main>
 
 
 <?php include("footer.php");?>

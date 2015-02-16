@@ -4,9 +4,7 @@ $collect=mongodb_connect_bezdna ();
 ?>
 
 
-<main role="main">
-<br>
-<br>
+
 
 <?php if($_REQUEST[search])
 {
@@ -72,7 +70,6 @@ $collect=mongodb_connect_bezdna ();
     }
 
     ?>
-    </main>
 
 
 <?php include("footer.php");?>

@@ -190,7 +190,11 @@ function one_post( $post_print, $page_numb, $like_db, $show_admin=0)  // фун�
 		<!--start QUITE BLOCK-->
         <div class="post">
             <header>
-                <a href="#" class="id item"><?php echo $post_print[numb];?></a>
+            <? $adr1="/post.php?number=";
+            	$adr2="$post_print[numb]";
+            	$adr3=$adr1.$adr2;?>
+
+                <a href="<? echo $adr3; ?>" class="id item"><?php echo $post_print[numb];?></a>
                 <time class="item" datetime="123"><? echo $post_print[postdate]; ?></time>
                 <a class="share item" href="#">Поделиться</a>
                 <span class="rate item">
@@ -243,7 +247,7 @@ function page_count_number($page=0, $collect, $status)     // функция п�
 	?>
 
 	<!--start PAGINATION BLOCK-->
-        <nav class="pagination" role="navigation">
+        <div class="pagination" role="navigation">
             <ul>
 
 	<?php 
@@ -382,7 +386,7 @@ function page_count_number($page=0, $collect, $status)     // функция п�
 		?>
 
  			</ul>
-        </nav>
+        </div>
         <!--end PAGINATION BLOCK-->
 	<?php 
 
@@ -519,7 +523,7 @@ function up_like($post_number, $collect, $updown)  //функция лайков
 
 
 		}
-	
+	return $nn;
 }
 function best_post_today ($collect, $show_admin)
 {
@@ -528,6 +532,9 @@ function best_post_today ($collect, $show_admin)
         			postdate=>new MongoRegex ( "/{$post_data_temp}/i" ),
         			status=> "accepted");
         $post=$collect[collect_bezdna]->find($filt);                // создаем запрос для поиска
+        $all_post_count = $post -> count();
+        if($all_post_count>0)
+        {
    		$post -> sort(array("like" => -1 ));
    		$post -> limit(25);                     // пока введу ограничение на поиск только из 50 пследних постов
    		$post-> rewind();
@@ -543,9 +550,14 @@ function best_post_today ($collect, $show_admin)
             {$post -> next();
 
               }
-        else{break;}
+       			 else{break;}
 
 				}
+			}
+			else
+			{
+				echo "Сегодня еще небыло постов!";
+			}
 
 }
 function best_post_month ($collect, $show_admin)
@@ -555,6 +567,9 @@ function best_post_month ($collect, $show_admin)
         			postdate=>new MongoRegex ( "/{$post_data_temp}/i" ),
         			status=> "accepted");
         $post=$collect[collect_bezdna]->find($filt);                // создаем запрос для поиска
+        $all_post_count = $post -> count();
+        if($all_post_count>0)
+        {
    		$post -> sort(array("like" => -1 ));
    		$post -> limit(25);                     // пока введу ограничение на поиск только из 50 пследних постов
    		$post-> rewind();
@@ -573,6 +588,11 @@ function best_post_month ($collect, $show_admin)
                 $flagff=TRUE;}
         else{break;}
 				}
+			}
+			else
+			{
+				echo "В этом месяце еще не было постов!";
+			}
 
 }
 function best_post_year ($collect, $year, $show_admin)
@@ -582,6 +602,9 @@ function best_post_year ($collect, $year, $show_admin)
         			postdate=>new MongoRegex ( "/{$post_data_temp}/i" ),
         			status=> "accepted");
         $post=$collect[collect_bezdna]->find($filt);                // создаем запрос для поиска
+         $all_post_count = $post -> count();
+        if($all_post_count>0)
+        {
    		$post -> sort(array("like" => -1 ));
    		$post -> limit(25);                     // пока введу ограничение на поиск только из 50 пследних постов
    		$post-> rewind();
@@ -599,13 +622,19 @@ function best_post_year ($collect, $year, $show_admin)
                 $flagff=TRUE;}
         else{break;}
 				}
+			}
+			else
+			{
+				echo "В этом году еще не было постов!";
+			}
+
 
 }
 
 function menu_top($collect, $page=0)
 {
 	?>
-	<nav class="pagination" role="navigation">
+	<div class="pagination" role="navigation">
             <ul>
 
 
@@ -683,27 +712,27 @@ function menu_top($collect, $page=0)
 				<li><a href="/best.php">Сегодня</a></li>
 				<li><a href="/best.php?page_top=month">За месяц</a></li>
                 <?php 
-		if($this_year>$page)
-		{
+		
 
                 $n=2100;
                 do
-                {
+                { 
                 	$postyear=$collect[collect_bezdna]->findOne(array(postdate=>new MongoRegex ( "/{$n}/i" ),
         			status=> "accepted"));
 					if($postyear)
 					{
 						$addr_3=$addr_1.$n;
-						?>
+	
+						?> 
 						<li><a href="<?php echo $addr_3;?>"><?php echo $n;?></a></li>
 						<?
 					}
 					$n--;
 					
 
-                }while($n==$this_year);
+                }while($n!=$page);
 
-		}
+		
 				?>		
                 <li><span class="this-page"><?php echo $page; ?></span></li>
     
@@ -730,7 +759,7 @@ function menu_top($collect, $page=0)
 	}
 	  ?>
             </ul>
-        </nav>
+        </div>
 
 
 	<?php

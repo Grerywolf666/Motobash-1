@@ -4,7 +4,6 @@ $collect=mongodb_connect_bezdna ();
 //$pagen = Whatpagenumber($collect[collect_bezdna], $_REQUEST['pagen'],"accepted");?>
 
 
-<main role="main">
 
 <?php if($pagen!='PageError!')
 {
@@ -50,7 +49,7 @@ $collect=mongodb_connect_bezdna ();
     }
 
     ?>
-    </main>
+
 
 
 <?php include("footer.php");?>

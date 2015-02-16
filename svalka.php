@@ -8,7 +8,6 @@ $status="new";
 ?>
 
 
-<main role="main">
 
 
 
@@ -37,7 +36,6 @@ $status="new";
 	}
 
 	?>
-    </main>
 
 
 <?php include("footer.php");?>

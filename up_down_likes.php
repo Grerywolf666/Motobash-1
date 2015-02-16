@@ -11,22 +11,32 @@ if($_REQUEST[submit]=="+")
 	
     
     setcookie("$show_like", "$show_like", time()+3600*24*30*12, "/");
-    up_like($_REQUEST[number], $collect[collect_bezdna], TRUE);
+    $like=up_like($_REQUEST[number], $collect[collect_bezdna], TRUE);
+    $otvet=array(success=TRUE,
+        id=$show_like,
+        rating=$like,)
+    echo json_encode($otvet);    
 }
 elseif ($_REQUEST[submit]=="-") {
-	$show_like=$_REQUEST[number];
-    up_like($_REQUEST[number], $collect[collect_bezdna], FALSE);
+    $show_like=$_REQUEST[number];
+    $like=up_like($_REQUEST[number], $collect[collect_bezdna], FALSE);
     setcookie("$show_like", "$show_like", time()+3600*24*30*12, "/");
-    //echo "<br><br>Пост лажа<br><br>";
+    
+    $otvet=array(success=TRUE,
+        id=$show_like,
+        rating=$like,)
+    echo json_encode($otvet);
     }
-    else
-    {
-       // echo "<br><br> че то не то <br><br>";
-    }
+else
+{
+        echo "failed";
+}
+}
+else
+{
+    echo "failed";
 }
 
 ?>
 
 
-
-<?//php include("footer.php");?>
