@@ -1,9 +1,13 @@
 <?php 
 
 if(isset($_POST['submit'])){
+<<<<<<< HEAD
 	//$ur="mongodb://wolfadmin:motoadmin@ds053090.mongolab.com:53090/motobashdb";
 	$ur="mongodb://MotoBash:MR_xeniper993A_@mc.grosvold.ru:27117/motobashdb";
 	$Connection = new Mongo($ur);
+=======
+	$Connection = new Mongo("mongodb://localhost:27017");
+>>>>>>> 7698273afb9633d496e1692eb16b51456ba8df9f
 	$db = $Connection -> motobashdb;
 	$collect = $db -> security;
 	$filter=array("login"=> "$_POST[login]");

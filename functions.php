@@ -2,11 +2,16 @@
 
 
 function mongodb_connect_bezdna ()
+<<<<<<< HEAD
 {  
 
 	$ur="mongodb://MotoBash:MR_xeniper993A_@mc.grosvold.ru:27117/motobashdb";
 	//$ur="mongodb://wolfadmin:motoadmin@ds053090.mongolab.com:53090/motobashdb";
     $Connection = new Mongo($ur);
+=======
+{
+	$Connection = new Mongo("mongodb://localhost:27017");
+>>>>>>> 7698273afb9633d496e1692eb16b51456ba8df9f
 	$db = $Connection -> motobashdb;
 	$collect_bezdna = $db -> newdb;   //база данных постов бездны
 	$collect_count = $db -> count;			//количество постов бездны
@@ -188,6 +193,7 @@ function one_post( $post_print, $page_numb, $like_db, $show_admin=0)  // фун�
 
 		?>
 		<!--start QUITE BLOCK-->
+<<<<<<< HEAD
         <div class="post">
             <header>
                 <a href="#" class="id item"><?php echo $post_print[numb];?></a>
@@ -202,6 +208,43 @@ function one_post( $post_print, $page_numb, $like_db, $show_admin=0)  // фун�
             <article><?php echo nl2br($post_print[posttext]);?>
             </article>
             <?php if ($show_admin)
+=======
+        <figure id="quote-<?php echo $post_print[numb]; ?>" class="quote">
+            <figcaption class="actions">
+                <div class="id">#<?php echo $post_print[numb]; ?></div>
+                <div class="rating">
+                <?php //echo $_COOKIE[$post_print[numb]];
+                if(like_accept($_COOKIE[$post_print[numb]], $post_print))
+                { ?>
+                    <div class="grade">
+                        <form  action="up_down_likes.php" method="POST">
+                            <input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>">
+                            <input name="submit" type="submit" value="+">
+                        </form>
+                    </div>
+                   <?php } ?>
+                    <span class="value"><?php echo $post_print[like]; ?> </span>
+                    <?php if(like_accept($_COOKIE[$post_print[numb]], $post_print))
+                { ?>
+                    <div class="downgrade">
+                        <form  action="up_down_likes.php" method="POST">
+                            <input name="number" type="hidden" value="<?php echo $post_print[numb]; ?>">
+                            <input name="submit" type="submit" value="-">
+                        </form>
+                    </div>
+                    	<?php } ?>
+                </div>
+                <div class="share" id="s1">Поделиться</div>
+                <div class="pubdate">
+                    <time datetime="<?php echo '$post_print[postdate]'; ?>" pubdate>
+                    	<span class="day"><?php echo get_date_day($post_print[postdate]); ?></span>-<span class="month"><?php echo get_date_month($post_print[postdate]); ?></span>-<span class="year"><?php echo get_date_year($post_print[postdate]); ?></span> <span class="time"><?php echo get_date_time($post_print[postdate]); ?></span>
+                    </time>
+                </div>
+            </figcaption>
+            <article class="content" role="article">
+                <?php echo nl2br($post_print[posttext]);?>
+            </article> <?php if ($show_admin)
+>>>>>>> 7698273afb9633d496e1692eb16b51456ba8df9f
             { ?>
             <div class="edit">
                 <form  action="edit.php" method="POST">
@@ -210,7 +253,13 @@ function one_post( $post_print, $page_numb, $like_db, $show_admin=0)  // фун�
                 </form>
             </div>
             <?php }?>
+<<<<<<< HEAD
         </div>
+=======
+        </figure>
+
+        <!--end QUOTE BLOCK-->
+>>>>>>> 7698273afb9633d496e1692eb16b51456ba8df9f
         <?php
 
 
@@ -776,9 +825,15 @@ function menu_top($collect, $page=0)
 
 }
 
+<<<<<<< HEAD
 function like_accept($coockie, $numb)
 {
     if($numb==$coockie)
+=======
+function like_accept($coockie, $post)
+{
+    if($post[numb]==$coockie)
+>>>>>>> 7698273afb9633d496e1692eb16b51456ba8df9f
     {
         return(FALSE);
     }

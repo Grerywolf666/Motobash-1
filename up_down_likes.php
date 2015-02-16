@@ -1,8 +1,11 @@
 <?php
 include("functions.php");
 $collect=mongodb_connect_bezdna ();
+<<<<<<< HEAD
 if(like_accept($_COOKIE[$_REQUEST[number]], $_REQUEST[number]))
  {
+=======
+>>>>>>> 7698273afb9633d496e1692eb16b51456ba8df9f
 
 if($_REQUEST[submit]=="+")
 {
@@ -22,7 +25,11 @@ elseif ($_REQUEST[submit]=="-") {
     {
        // echo "<br><br> че то не то <br><br>";
     }
+<<<<<<< HEAD
 }
+=======
+    header("Location: index.php"); exit();
+>>>>>>> 7698273afb9633d496e1692eb16b51456ba8df9f
 
 
 ?>
