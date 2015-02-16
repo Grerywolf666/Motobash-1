@@ -63,7 +63,7 @@ $ur="mongodb://MotoBash:MR_xeniper993A_@mc.grosvold.ru:27117/motobashdb";
                 <a class="ig icon social" href="//instagram.com/motoviewer">ig</a>
                 <a class="rss icon social" href="/rss">rss</a>
             </div>
-            <form class="search-input" action="search.php" method="POST">
+            <form class="search-input" action="search" method="POST">
                 <input type="button" value="search" class="search icon"/>
                 <input type="search" name="search" id="search" class="text empty" placeholder="найти..."/>
 
@@ -73,12 +73,12 @@ $ur="mongodb://MotoBash:MR_xeniper993A_@mc.grosvold.ru:27117/motobashdb";
     <nav>
         <div class="wrapper"> 
             <a class="menu <? if($_SERVER[REQUEST_URI]=='/'){ ?> active <? }   ?>" href="/">новые</a>
-            <a class="menu <? if($_SERVER[REQUEST_URI]=='/random.php'){ ?> active <? }   ?>" href="/random.php">случайные</a>
-            <a class="menu <? if($_SERVER[REQUEST_URI]=='/best.php'){ ?> active <? }   ?>" href="/best.php">лучшие</a>
-            <a class="menu <? if($_SERVER[REQUEST_URI]=='/top.php'){ ?> active <? }   ?>" href="/top.php">по рейтингу</a>
-            <a class="menu <? if($_SERVER[REQUEST_URI]=='/newpost.php'){ ?> active <? }   ?>" href="/newpost.php">+ добавить</a>
-            <a class="menu <? if($_SERVER[REQUEST_URI]=='/svalka.php'){ ?> active <? }   ?>" href="/svalka.php">Свалка</a>
-            <a class="menu <? if($_SERVER[REQUEST_URI]=='/top_svalka.php'){ ?> active <? }   ?>" href="/top_svalka.php">
+            <a class="menu <? if($_SERVER[REQUEST_URI]=='/random'){ ?> active <? }   ?>" href="/random">случайные</a>
+            <a class="menu <? if($_SERVER[REQUEST_URI]=='/best'){ ?> active <? }   ?>" href="/best">лучшие</a>
+            <a class="menu <? if($_SERVER[REQUEST_URI]=='/top'){ ?> active <? }   ?>" href="/top">по рейтингу</a>
+            <a class="menu <? if($_SERVER[REQUEST_URI]=='/newpost'){ ?> active <? }   ?>" href="/newpost">+ добавить</a>
+            <a class="menu <? if($_SERVER[REQUEST_URI]=='/svalka'){ ?> active <? }   ?>" href="/svalka">Свалка</a>
+            <a class="menu <? if($_SERVER[REQUEST_URI]=='/top_svalka'){ ?> active <? }   ?>" href="/top_svalka">
                 топ свалки
                 <span class="count">127</span>
             </a>

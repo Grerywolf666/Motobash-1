@@ -190,7 +190,7 @@ function one_post( $post_print, $page_numb, $like_db, $show_admin=0)  // фун�
 		<!--start QUITE BLOCK-->
         <div class="post">
             <header>
-            <? $adr1="/post.php?number=";
+            <? $adr1="/post?number=";
             	$adr2="$post_print[numb]";
             	$adr3=$adr1.$adr2;?>
 
@@ -208,7 +208,7 @@ function one_post( $post_print, $page_numb, $like_db, $show_admin=0)  // фун�
             <?php if ($show_admin)
             { ?>
             <div class="edit">
-                <form  action="edit.php" method="POST">
+                <form  action="edit" method="POST">
                     <input name="post_numb_in_base" type="hidden" value="<?php echo $post_print[numb];?>">
                     <input name="Edit" type="submit" value="Edit">
                 </form>
@@ -238,7 +238,7 @@ function page_count_number($page=0, $collect, $status)     // функция п�
 		$all_page_numb++;
 	}
 	//echo "$all_page_numb <br>";
-	$adr='/garaj.php?pagen=';
+	$adr='/svalka?pagen=';
 	if($page==0)
 	{
 		$page=$all_page_numb;
@@ -639,7 +639,7 @@ function menu_top($collect, $page=0)
 
 
 	<?php
-	$addr_1="/best.php?page_top=";
+	$addr_1="/best?page_top=";
 	$addr_2="month";
 	$addr_3=$addr_1.$addr_2;
 	if (!$page)
@@ -677,7 +677,7 @@ function menu_top($collect, $page=0)
 
 	{
 		?>		
-				<li><a href="/best.php">Сегодня</a></li>
+				<li><a href="/best">Сегодня</a></li>
                 <li><span class="this-page">За месяц</span></li>
 
 
@@ -709,8 +709,8 @@ function menu_top($collect, $page=0)
 	{
 		$this_year = date('Y');
 		?>		
-				<li><a href="/best.php">Сегодня</a></li>
-				<li><a href="/best.php?page_top=month">За месяц</a></li>
+				<li><a href="/best">Сегодня</a></li>
+				<li><a href="/best?page_top=month">За месяц</a></li>
                 <?php 
 		
 
